@@ -236,18 +236,18 @@ const TokenList: React.FC<Props> = ({
                                 {state.sortAPY === "DESC" && (<SortArrowDownIcon css={iconColorStyle} />)}
                                 <div css={descStyle}>APY</div>
                             </div>
-                            <div css={titleStyle("right")}>Daily APR</div>
-                            <div css={titleStyle("right")}>AUTOx</div>
+                            <div css={titleStyle()}>Daily APR</div>
+                            <div css={titleStyle()}>AUTOx</div>
                         </TokenDataHeader>
 
                         <TokenDataHeader align={"right"}>
-                            <div css={titleStyle("right")}>Balance</div>
-                            <div css={titleStyle("right")}>Deposit</div>
-                            <div css={titleStyle("right")}>Rewards</div>
+                            <div css={titleStyle()}>Balance</div>
+                            <div css={titleStyle()}>Deposit</div>
+                            <div css={titleStyle()}>Rewards</div>
                         </TokenDataHeader>
 
                         <TokenDataHeader>
-                            <div css={titleStyle("right")}>&nbsp;</div>
+                            <div css={titleStyle()}>&nbsp;</div>
                         </TokenDataHeader>
                     </TableHeaderContainer>
                 </div>
@@ -325,7 +325,7 @@ const dropdownContainerStyle = css`
 `;
 
 
-const titleStyle = (align: AlignType = "left") => (theme: Theme) => css`
+const titleStyle = (align: AlignType = "right") => (theme: Theme) => css`
     color: ${theme.colours.defaultText};
     font-size: 14px;
     font-weight: bold;
