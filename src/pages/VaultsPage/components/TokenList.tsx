@@ -107,38 +107,6 @@ const TokenList: React.FC<Props> = ({
         });
     }, [setState]);
 
-    const sortList = useCallback((list: any[], sortField: SortType, colIndex: number) => {
-        if (sortField === "DEFAULT") {
-            return list;
-        }
-
-        const sortedList = list.slice();
-        sortedList.sort((tokenDataArray1: any[], tokenDataArray2: any[]) => {
-            const total1 = tokenDataArray1[colIndex];
-            const total2 = tokenDataArray2[colIndex];
-
-            let sortResult;
-            switch (true) {
-                case total1 > total2:
-                    sortResult = 1;
-                    break;
-                case total1 < total2:
-                    sortResult = -1;
-                    break;
-                default:
-                    sortResult = 0;
-                    break;
-            }
-
-            if (sortField === "DESC") {
-                return sortResult * -1;
-            }
-            return sortResult;
-        });
-
-        return sortedList;
-    }, []);
-
     const filteredTokenList = useMemo(() => {
         let filtered = tokens.slice();
         if (state.searchTokenThrottle) {
@@ -291,6 +259,38 @@ const TokenList: React.FC<Props> = ({
         </Container>
     );
 }
+
+const sortList = (list: any[], sortField: SortType, colIndex: number) => {
+    if (sortField === "DEFAULT") {
+        return list;
+    }
+
+    const sortedList = list.slice();
+    sortedList.sort((tokenDataArray1: any[], tokenDataArray2: any[]) => {
+        const total1 = tokenDataArray1[colIndex];
+        const total2 = tokenDataArray2[colIndex];
+
+        let sortResult;
+        switch (true) {
+            case total1 > total2:
+                sortResult = 1;
+                break;
+            case total1 < total2:
+                sortResult = -1;
+                break;
+            default:
+                sortResult = 0;
+                break;
+        }
+
+        if (sortField === "DESC") {
+            return sortResult * -1;
+        }
+        return sortResult;
+    });
+
+    return sortedList;
+};
 
 const style = css`
     width: 100%;
