@@ -1,8 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 import { css } from "@emotion/react";
-import { ReactComponent as SortArrowAllIcon } from "../../../../images/sort-arrow-all.svg";
-
-type AlignType = "left" | "right";
+import { AlignType } from "../../../includes/constants";
 
 type Props = {
     children?: React.ReactNode,
@@ -12,11 +10,11 @@ type Props = {
 };
 
 const TokenDataCellContainer: React.FC<Props> = ({
-                                                     children,
-                                                     className,
-                                                     onClick,
-                                                     align = "left"
-                                                 }) => (
+    children,
+    className,
+    onClick,
+    align = "left"
+}) => (
     <div className={className} css={style(align)} onClick={onClick}>
         {children}
     </div>
@@ -26,8 +24,8 @@ const style = (align: AlignType) => css`
     display: flex;
     flex-direction: column;
 
-    ${align === "left" && css`
-        align-items: flex-start;
+    ${align === "left" && css`x
+    align-items: flex-start;
     `};
 
     ${align === "right" && css`
@@ -35,4 +33,4 @@ const style = (align: AlignType) => css`
     `};
 `;
 
-export default TokenDataCellContainer;
+export default memo(TokenDataCellContainer);

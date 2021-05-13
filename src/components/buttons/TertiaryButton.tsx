@@ -6,14 +6,21 @@ import PrimaryButton from "./PrimaryButton";
 
 type Props = {
     children?: React.ReactNode,
-    onClick?: () => void,
+    onClick?: () => void | Promise<void>,
     className?: string,
     disabled?: boolean,
+    fullWidth?: boolean,
 };
 
-const SecondaryButton: React.FC<Props> = ({ disabled = false, children, onClick = NOOP, className = "" }) => (
+const TertiaryButton: React.FC<Props> = ({
+                                             disabled = false,
+                                             children,
+                                             onClick = NOOP,
+                                             className = "",
+                                             fullWidth = false,
+                                         }) => (
     <PrimaryButton
-        css={style(disabled)}
+        css={style(disabled, fullWidth)}
         className={className}
         onClick={onClick}
         {...disabled && { disabled: true }}
@@ -22,25 +29,29 @@ const SecondaryButton: React.FC<Props> = ({ disabled = false, children, onClick 
     </PrimaryButton>
 );
 
-const style = (disabled: boolean) => (theme: Theme) => css`
-    background-color: ${theme.colours.button.secondary};
-    border: 1px solid ${theme.colours.button.secondary};
-    color: ${theme.colours.link};
+const style = (disabled: boolean, fullWidth: boolean) => (theme: Theme) => css`
+    background-color: ${theme.colours.button.tertiary};
+    border: 1px solid ${theme.colours.button.tertiary};
+    color: ${theme.colours.text};
+
+    ${fullWidth && css`
+        width: 100%;
+    `};
 
     ${disabled
             ? css`
-                border: 1px solid ${theme.colours.button.secondary};
-                background-color: ${theme.colours.button.secondary};
+                border: 1px solid ${theme.colours.button.tertiary};
+                background-color: ${theme.colours.button.tertiary};
             `
             : css`
                 cursor: pointer;
 
                 :hover {
-                    background-color: ${theme.colours.button.hover};
+                    background-color: ${theme.colours.linkButton.hover};
                 }
             `
     };
 `;
 
-export default SecondaryButton;
+export default TertiaryButton;
 

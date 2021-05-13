@@ -1,71 +1,69 @@
 import React, { createContext, useContext, useMemo, Dispatch, useCallback } from "react";
-import useSetState from "../../core/hooks/useSetState";
+import useSetState from "../hooks/useSetState";
+import { NOOP } from "../../constants";
 
-export type DropdownContextValueType = string | number | undefined | null;
-
-export type DropdownContextType = DropdownStateType & {
-    setSelectedValue: Dispatch<DropdownContextValueType> | undefined | null,
-    setSelectedChildren: (children: React.ReactNode) => void | undefined | null,
+export type ConnectWalletContextType = {
+    toggleConnectWalletModal: Dispatch<boolean>,
+    disconnectWallet: () => void,
+    connectWallet: () => void,
+    isOpen: boolean,
+    walletIsConnected: boolean,
 }
 
-const DropdownContext = createContext<DropdownContextType>({
-    selectedValue: null,
-    selectedChildren: null,
-    setSelectedValue: (value: DropdownContextValueType) => {
-    },
-    setSelectedChildren: (children: React.ReactNode) => {
+const ConnectWalletContext = createContext<ConnectWalletContextType>({
+    isOpen: false,
+    walletIsConnected: false,
+    disconnectWallet: NOOP,
+    connectWallet: NOOP,
+    toggleConnectWalletModal: (isOpen: boolean) => {
     },
 });
 
-type DropdownStateType = {
-    selectedValue?: DropdownContextValueType,
-    selectedChildren?: React.ReactNode | undefined,
-}
-
 type Props = {
     children?: React.ReactNode,
-    defaultValue?: DropdownContextValueType
 };
 
-export const DropdownContextProvider = ({ children, defaultValue }: Props) => {
-    const [state, setState] = useSetState<DropdownStateType>({ selectedValue: defaultValue });
+type DEFAULT_STATE = {
+    isOpen: boolean,
+    walletIsConnected: boolean,
+};
 
-    const setSelectedValue = useCallback((selectedValue: DropdownContextValueType) => {
-        setState({ selectedValue });
+const DEFAULT_APP_STATE = {
+    isOpen: false,
+    walletIsConnected: false,
+};
+
+export const ConnectWalletContextProvider = ({ children }: Props) => {
+    const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
+
+    const connectWallet = useCallback(() => {
+        setState({ walletIsConnected: true });
     }, [setState]);
 
-    const setSelectedChildren = useCallback((selectedChildren: React.ReactNode) => {
-        setState({ selectedChildren });
+    const disconnectWallet = useCallback(() => {
+        setState({ walletIsConnected: false });
     }, [setState]);
 
-    const value: DropdownContextType = useMemo(() => {
+    const toggleConnectWalletModal = useCallback((isOpen: boolean) => {
+        setState({ isOpen });
+    }, [setState]);
+
+    const value: ConnectWalletContextType = useMemo(() => {
         return {
             ...state,
-            setSelectedValue,
-            setSelectedChildren,
+            connectWallet,
+            disconnectWallet,
+            toggleConnectWalletModal,
         }
-    }, [state, setSelectedChildren, setSelectedValue]);
+    }, [state, toggleConnectWalletModal, disconnectWallet, connectWallet]);
 
     return (
-        <DropdownContext.Provider value={value}>
+        <ConnectWalletContext.Provider value={value}>
             {children}
-        </DropdownContext.Provider>
+        </ConnectWalletContext.Provider>
     );
 };
 
-export const useDropdownContext = () => {
-    return useContext<DropdownContextType>(DropdownContext);
-};
-
-export const withDropdownContext = (WrappedComponent: React.FC<any> | React.ComponentType<any>) => {
-    // eslint-disable-next-line react/display-name
-    const wrapper = (originalProps: Props) => (
-        <DropdownContextProvider>
-            <WrappedComponent {...originalProps} />
-        </DropdownContextProvider>
-    );
-
-    // Similar to how React.memo works. So that other files can still access the original component.
-    wrapper.type = WrappedComponent;
-    return wrapper;
+export const useConnectWalletContext = () => {
+    return useContext<ConnectWalletContextType>(ConnectWalletContext);
 };

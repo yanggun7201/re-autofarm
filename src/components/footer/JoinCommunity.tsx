@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import Container from "../layouts/Container";
 import { css } from "@emotion/react";
 import { Theme } from "../../theme";
 import CommonLink from "../links/CommonLink";
@@ -8,56 +7,53 @@ import { ReactComponent as MediumIcon } from "../../images/medium-icon.svg";
 import { ReactComponent as TwitterIcon } from "../../images/twitter-icon.svg";
 import { ReactComponent as DiscordIcon } from "../../images/discord-icon.svg";
 
-const ContactUs: React.FC = () => {
+const JoinCommunity: React.FC = () => {
     return (
-        <div css={itemContainerStyle}>
-            <div css={itemContainerTitleStyle}>Contact Us</div>
-            <div css={contactUsContainerStyle}>
-                <div>
-                    <span css={itemSemiTitleStyle}>Business Enquiries</span>
-                    <br />
-                    <a href="mailto:hello@autofarm.network" css={mailLinkStyle}>hello@autofarm.network</a>
-                </div>
-                <div>
-                    <span css={itemSemiTitleStyle}>Customer Support</span>
-                    <br />
-                    <a href="mailto:support@autofarm.network" css={mailLinkStyle}>support@autofarm.network</a>
-                </div>
+        <div css={style}>
+            <div css={titleStyle}>Join Community</div>
+            <div css={itemContainerStyle}>
+                <CommonLink css={linkStyle} href="https://t.me/autofarm_network">
+                    <TelegramIcon css={iconStyle} />
+                </CommonLink>
+                <CommonLink css={linkStyle} href="https://medium.com/autofarm-network">
+                    <MediumIcon css={iconStyle} />
+                </CommonLink>
+                <CommonLink css={linkStyle} href="https://twitter.com/autofarmnetwork">
+                    <TwitterIcon css={iconStyle} />
+                </CommonLink>
+                <CommonLink css={linkStyle} href="https://discord.gg/bJ9ZsypQzv">
+                    <DiscordIcon css={iconStyle} />
+                </CommonLink>
             </div>
         </div>
     )
 };
 
-const itemContainerStyle = css`
+const style = css`
     display: flex;
     flex-direction: column;
     font-size: 16px;
 `;
 
-const itemContainerTitleStyle = (theme: Theme) => css`
+const itemContainerStyle = (theme: Theme) => css`
+    display: flex;
+    flex-direction: row;
+`;
+
+const titleStyle = (theme: Theme) => css`
     font-size: 20px;
     font-weight: bold;
     color: ${theme.colours.text};
     margin-bottom: 14px;
 `;
 
-const contactUsContainerStyle = (theme: Theme) => css`
-    display: flex;
-    flex-direction: column;
+const linkStyle = (theme: Theme) => css`
+    font-size: 16px;
+    color: ${theme.colours.text};
 
-    > div {
-        margin-bottom: 6px;
+    :not(:first-of-type) {
+        margin-left: 20px;
     }
-`;
-
-const itemSemiTitleStyle = (theme: Theme) => css`
-    font-weight: bold;
-    color: ${theme.colours.text};
-`;
-
-const mailLinkStyle = (theme: Theme) => css`
-    text-decoration: none;
-    color: ${theme.colours.text};
 
     :active,
     :focus,
@@ -66,4 +62,10 @@ const mailLinkStyle = (theme: Theme) => css`
     }
 `;
 
-export default memo(ContactUs);
+const iconStyle = (theme: Theme) => css`
+    width: 20px;
+    height: 20px;
+`;
+
+
+export default memo(JoinCommunity);

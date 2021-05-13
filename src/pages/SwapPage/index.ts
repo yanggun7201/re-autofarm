@@ -1,3 +1,3 @@
-import DashboardPage from "./DashboardPage";
+import SwapPage from "./SwapPage";
 
-export default DashboardPage;
+export default SwapPage;

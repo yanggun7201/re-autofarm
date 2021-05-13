@@ -1,3 +1,4 @@
 src/images/**
 src/fonts/**
 src/**/*.css
+node_modules/**/*.css

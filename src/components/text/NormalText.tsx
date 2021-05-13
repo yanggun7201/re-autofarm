@@ -1,31 +1,39 @@
 import React, { memo } from "react";
 import { css } from "@emotion/react";
 import { Theme } from "../../theme";
-import { AlignType } from "../../pages/VaultsPage/components/constants";
+import { AlignType } from "../../includes/constants";
+
+type DisplayType = "inline" | "flex" | "inline-flex" | "block" | "";
 
 type Props = {
     children?: React.ReactNode,
     className?: string,
+    display?: DisplayType,
     align?: AlignType,
 };
 
-const TitleText: React.FC<Props> = ({ children, className, align = "left" }) => (
-    <div className={className} css={style(align)}>
+const NormalText: React.FC<Props> = ({
+                                         display = "",
+                                         children,
+                                         className,
+                                         align = "left"
+                                     }) => (
+    <div className={className} css={style(display, align)}>
         {children}
     </div>
 );
 
-const style = (align: AlignType) => (theme: Theme) => css`
+const style = (display: DisplayType, align: AlignType) => (theme: Theme) => css`
     color: ${theme.colours.text};
     font-size: 16px;
-    font-weight: bold;
-    height: 24px;
     text-align: ${align};
+    ${display && css`
+        display: ${display};
+    `};
 
     ${theme.breakpoints.only("xs")} {
-        height: 20px;
         font-size: 14px;
     }
 `;
 
-export default memo(TitleText);
+export default memo(NormalText);

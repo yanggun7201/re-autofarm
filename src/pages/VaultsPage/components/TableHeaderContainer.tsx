@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import { css } from "@emotion/react";
-import { ReactComponent as SortArrowAllIcon } from "../../../../images/sort-arrow-all.svg";
 
 type Props = {
     children?: React.ReactNode,
@@ -21,7 +20,6 @@ const style = (onClick?: (e: React.MouseEvent) => void) => css`
     width: 100%;
     height: 60px;
     padding: 8px;
-    padding-left: 80px;
 
     ${onClick && css`
         cursor: pointer;

@@ -1,45 +1,47 @@
 import React from "react";
-import { css, useTheme } from "@emotion/react";
+import { css } from "@emotion/react";
 import { Theme } from "../../theme";
-import { ReactComponent as WalletIcon } from "../../images/wallet-icon.svg";
-import { NOOP } from "../../constants";
+import CommonLink from "../links/CommonLink";
 
 type Props = {
-    title: string,
-    onClick?: () => void,
+    children: React.ReactNode,
+    href: string,
     className?: string,
 };
 
-const OutlineButton: React.FC<Props> = ({ title = "", onClick = NOOP, className = "" }) => (
-    <button css={walletButtonStyle} className={className} onClick={onClick}>
-        <WalletIcon css={walletIconStyle} />
-        <div css={walletLabelStyle}>{title}</div>
-    </button>
+const LinkButton: React.FC<Props> = ({ children, href, className = "" }) => (
+    <CommonLink href={href} className={className} css={style}>
+        {children}
+    </CommonLink>
 );
 
-const walletButtonStyle = (theme: Theme) => css`
-    border: 1px solid ${theme.colours.border};
-    background-color: ${theme.colours.background};
-    display: flex;
+const style = (theme: Theme) => css`
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 34px;
+    line-height: 1;
     padding: 8px;
-    border-radius: 5px;
+    white-space: nowrap;
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .15s;
+    font-weight: bold;
+    color: ${theme.colours.text};
+    background-color: ${theme.colours.linkButton.link};
+    transition: background-color ${theme.transitions.transition};
+    
+    :hover {
+        background-color: ${theme.colours.linkButton.hover};
+    }
+
+    :active,
+    :focus,
+    :visited {
+        color: ${theme.colours.text};
+    }
 `;
 
-const walletIconStyle = (theme: Theme) => css`
-    color: #3c81f6;
-    width: 16px;
-    height: 16px;
-`;
-
-const walletLabelStyle = (theme: Theme) => css`
-    font-size: 16px;
-    color: #3c81f6;
-    font-weight: 400;
-    margin-left: 10px;
-`;
-
-export default OutlineButton;
+export default LinkButton;
 

@@ -3,8 +3,8 @@
 export default {
     zIndexMax: 2147483647,
     zIndexHighest: 90000, // Really high to get above z-indexes in external libraries
-    zIndexHamburgerMenu: 1101, // hamburger menu
-    zIndexLeftMenu: 1100, // left menu
+    zIndexModal: 1101,
+    zIndexModalOverlay: 1100,
     zIndexHigher: 400,
     zIndexHigh: 300, // The top nav bar (NavHeader)
     zIndexMediumHigh: 200,

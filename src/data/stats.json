@@ -1,7 +1,4 @@
-export type StatDataType = {
-}
-
-const data = {
+{
   "platformTVL": 1784490111.0413108,
   "priceAUTO": "2980.45470988",
   "AUTOMaxSupply": 80000,
@@ -10,8 +7,4 @@ const data = {
   "AUTOTotalSupply": 36899.22357860162,
   "AUTOMarketCap": 109976464.70575833,
   "AUTOMarketCapFullyDiluted": 238436376.7904
-};
-
-export default {
-  ...data,
 }

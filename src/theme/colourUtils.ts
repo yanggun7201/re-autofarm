@@ -1,9 +1,3 @@
-const colours = {
-    transparent: 'rgba(0,0,0,0)', // Useful for transitions between no fill and fill.,
-    text: '#212121',
-    background: '#ffffff',
-};
-
 /**
  * Convert a hexadecimal integer to a decimal integer.
  *
@@ -36,6 +30,5 @@ const utils = {
 
 
 export default {
-    ...colours,
-    utils,
+    ...utils,
 };

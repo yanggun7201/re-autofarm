@@ -1,48 +1,66 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { Theme } from "../../theme";
-import { Link, NavLink } from "react-router-dom";
+import MenuItem from "./MenuItem";
+import { ReactComponent as VaultsIcon } from "../../images/vaults-icon.svg";
+import { ReactComponent as SwapIcon } from "../../images/swap-icon.svg";
+import { ReactComponent as DashboardIcon } from "../../images/dashboard-icon.svg";
 
 type Props = {
-    children: React.ReactNode,
-    title: string,
-    path: string,
-    onClick: () => void,
-}
+    className?: string,
+};
 
-const MenuItem: React.FC<Props> = ({ children, title, path = "/", onClick }) => (
-    <NavLink to={path} onClick={onClick} exact css={style} activeClassName={"active"}>
-        {children}
-        <div css={titleStyle}>{title}</div>
-    </NavLink>
-
+const Menus: React.FC<Props> = ({ className = "" }) => (
+    <div css={style} className={className}>
+        <MenuItem title={"Vaults"} path={"/"}>
+            <VaultsIcon css={iconStyle} />
+        </MenuItem>
+        <MenuItem title={"Swap"} path={"/swap"}>
+            <SwapIcon css={iconStyle} />
+        </MenuItem>
+        <MenuItem title={"Dashboard"} path={"/dashboard"}>
+            <DashboardIcon css={iconStyle} />
+        </MenuItem>
+    </div>
 );
 
 const style = (theme: Theme) => css`
     display: flex;
-    align-items: center;
-    width: 102px;
-    height: 24px;
-    padding: 8px;
-    border-radius: 8px;
-    color: black;
-    text-decoration: none;
-    font-family: '"system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"';
-    font-weight: bold;
-    transition: background-color ${theme.transitions.transition};
+    flex-direction: column;
 
-    :hover {
-        background-color: #edeef9;
+    > a {
+        margin: 8px -8px 0;
+        width: 159px;
+
+        ${theme.breakpoints.up("xxl")} {
+            width: 175px;
+        }
+
+        ${theme.breakpoints.down("lg")} {
+            margin: 0;
+            width: 118px;
+        }
     }
 
-    &.active {
-        background-color: #dadff4;
+    > a:first-of-type {
+        margin-top: 0;
     }
 `;
 
-const titleStyle = css`
-    margin-left: 7px;
+const iconStyle = (theme: Theme) => css`
+    width: 20px;
+    height: 20px;
+
+    ${theme.breakpoints.up("xxl")} {
+        width: 24px;
+        height: 24px;
+    }
+
+    ${theme.breakpoints.down("lg")} {
+        width: 16px;
+        height: 16px;
+    }
 `;
 
-export default MenuItem;
+export default Menus;
 

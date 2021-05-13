@@ -9,14 +9,14 @@ type Props = {
     align?: AlignType,
 };
 
-const NormalText: React.FC<Props> = ({ children, className, align = "left" }) => (
+const BlackGrayText: React.FC<Props> = ({ children, className, align = "left" }) => (
     <div className={className} css={style(align)}>
         {children}
     </div>
 );
 
 const style = (align: AlignType) => (theme: Theme) => css`
-    color: ${theme.colours.text};
+    color: ${theme.colours.blackGrayText};
     font-size: 16px;
     text-align: ${align};
 
@@ -25,4 +25,4 @@ const style = (align: AlignType) => (theme: Theme) => css`
     }
 `;
 
-export default memo(NormalText);
+export default memo(BlackGrayText);

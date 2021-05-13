@@ -1,35 +1,72 @@
 import React from "react";
-
-import { ReactComponent as LogoRoundSVG } from "../images/logo-round.svg";
-import { ReactComponent as LogoTextSVG } from "../images/logo-text.svg";
 import { css } from "@emotion/react";
+import { Theme } from "../../theme";
+import { NavLink } from "react-router-dom";
+import { ExtraCssPropType, extraCss } from "../../includes/emotion";
 
-const Logo: React.FC = () => (
-    <div css={style} className="flex justify-center xl:justify-start items-center space-x-1 sm:space-x-2">
-        <LogoRoundSVG css={logoStyle} />
-        <LogoTextSVG css={logoTextStyle} />
-    </div>
+type Props = {
+    children: React.ReactNode,
+    title: string,
+    path: string,
+    extraTitleCss?: ExtraCssPropType,
+}
+
+const MenuItem: React.FC<Props> = ({ children, title, path = "/", extraTitleCss = "" }) => (
+    <NavLink to={path} {...path === "/" && { exact: true }} css={style} activeClassName={"active"}>
+        {children}
+        <div css={titleStyle(extraTitleCss)}>{title}</div>
+    </NavLink>
 );
 
-const style = css`
+const style = (theme: Theme) => css`
     display: flex;
-    flex-direction: row;
     align-items: center;
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    border-radius: 8px;
+    color: ${theme.colours.text};
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color ${theme.transitions.transition};
+
+    ${theme.breakpoints.up("xl")} {
+        :hover {
+            background-color: ${theme.colours.menu.hover};
+        }
+
+        &.active {
+            background-image: linear-gradient(to right, ${theme.colours.menu.linearGradient});
+        }
+    }
+    
+    &.active {
+        background-color: ${theme.colours.menu.active};
+
+        div {
+            color: ${theme.colours.text};
+        }
+    }
 `;
 
-const logoStyle = css`
-    height: 32px;
-    width: 32px;
+const titleStyle = (extraTitleCss: ExtraCssPropType) => (theme: Theme) => css`
+    margin-left: 7px;
+
+    ${theme.breakpoints.up("xxl")} {
+        font-size: 17px;
+        line-height: 18px;
+        height: 17px;
+    }
+
+    ${theme.breakpoints.down("lg")} {
+        font-size: 16px;
+        line-height: 19px;
+        height: 16px;
+        color: ${theme.colours.blackGrayText};
+    }
+
+    ${extraCss(extraTitleCss, theme)};
 `;
 
-const logoTextStyle = css`
-    height: 30px;
-    width: 6rem;
-    display: block;
-    color: #4959c4;
-    fill: #4959c4;
-    padding-left: 10px;
-`;
-
-export default Logo;
+export default MenuItem;
 

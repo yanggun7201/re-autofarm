@@ -1,22 +1,23 @@
-import React, { useCallback, useRef } from "react";
+import React, { memo, useCallback } from "react";
 import { css } from "@emotion/react";
-import { ReactComponent as MagicWandIcon } from "../../../../images/magic-wand-icon.svg";
-import { ReactComponent as LinkIcon } from "../../../../images/link-icon.svg";
-import { Theme } from "../../../../theme";
-import borderAndShadow from "../../../../theme/borderAndShadow";
-import TitleText from "../../../../components/text/TitleText";
-import NormalText from "../../../../components/text/NormalText";
-import Container from "../../../../components/layouts/Container";
-import InputNumber from "../../../../components/input/InputNumber";
-import { DropdownContextValueType } from "../../../../components/dropdown/DropdownContext";
-import useSetState from "../../../../core/hooks/useSetState";
-import PrimaryButton from "../../../../components/buttons/PrimaryButton";
-import SecondaryButton from "../../../../components/buttons/SecondaryButton";
-import CommonLink from "../../../../components/links/CommonLink";
-import LinkButton from "../../../../components/buttons/LinkButton";
+import { ReactComponent as MagicWandIcon } from "../../../images/magic-wand-icon.svg";
+import { ReactComponent as LinkIcon } from "../../../images/link-icon.svg";
+import { Theme } from "../../../theme";
+import TitleText from "../../../components/text/TitleText";
+import SubText from "../../../components/text/SubText";
+import Container from "../../../components/layouts/Container";
+import InputNumber from "../../../components/input/InputNumber";
+import useSetState from "../../../core/hooks/useSetState";
+import PrimaryButton from "../../../components/buttons/PrimaryButton";
+import SecondaryButton from "../../../components/buttons/SecondaryButton";
+import CommonLink from "../../../components/links/CommonLink";
+import LinkButton from "../../../components/buttons/LinkButton";
+import NormalText from "../../../components/text/NormalText";
+import { TokenDataType } from "../../../includes/constants";
 
 type Props = {
     className?: string,
+    tokenData: TokenDataType,
 };
 
 type DEFAULT_STATE = {
@@ -29,7 +30,7 @@ const DEFAULT_APP_STATE = {
     toWithdrawValue: 0,
 };
 
-const TokenPayment: React.FC<Props> = ({ className }) => {
+const TokenPayment: React.FC<Props> = ({ className,tokenData }) => {
     const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
 
     const onToDepositValueChanged = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,148 +46,140 @@ const TokenPayment: React.FC<Props> = ({ className }) => {
     }, []);
 
     return (
-        <div css={style}>
-            <div className="MuiCollapse-wrapper">
-                <div className="MuiCollapse-wrapperInner">
-                    <div css={paymentBoxStyle}>
-                        <div css={paymentInnerBoxStyle}>
+        <div css={style} className={className}>
+            <div css={paymentBoxStyle}>
+                <div css={paymentInnerBoxStyle}>
 
-                            <div css={boxStyle}>
-
-                                <Container css={titleBoxStyle}>
-                                    <TitleText>Balance</TitleText>
-                                    <NormalText align={"right"}>– ($–)</NormalText>
-                                </Container>
-
-                                <form>
-                                    <InputNumber
-                                        value={state.toDepositValue}
-                                        onChange={onToDepositValueChanged}
-                                        placeholder="0"
-                                        css={inputStyle}
-                                    >
-                                        <div css={maxButtonStyle} onClick={onMaxClicked}>MAX</div>
-                                    </InputNumber>
-                                    <PrimaryButton
-                                        {...state.toDepositValue === 0 && { disabled: true }}
-                                    >
-                                        Deposit
-                                    </PrimaryButton>
-                                </form>
-                            </div>
-
-
-                            <div css={boxStyle}>
-
-                                <Container css={titleBoxStyle}>
-                                    <TitleText>Deposit</TitleText>
-                                    <NormalText align={"right"}>
-                                        – ($–)
-                                        <div className="text-gray-500">% of vault</div>
-                                    </NormalText>
-                                </Container>
-
-                                <form>
-                                    <InputNumber
-                                        value={state.toWithdrawValue}
-                                        onChange={onToWithdrawValueChanged}
-                                        placeholder="0"
-                                        css={inputStyle}
-                                    >
-                                        <div css={maxButtonStyle} onClick={onMaxClicked}>MAX</div>
-                                    </InputNumber>
-                                    <PrimaryButton
-                                        {...state.toWithdrawValue === 0 && { disabled: true }}
-                                    >
-                                        Withdraw
-                                    </PrimaryButton>
-                                </form>
-
-                            </div>
-
-                            <Container css={rewardsBoxStyle}>
-                                <TitleText css={rewardsTitleStyle}>AUTO Rewards</TitleText>
-                                <div css={rewardsSubBoxStyle}>
-                                    <TitleText css={rewardsFirstTextStyle}>–</TitleText>
-                                    <NormalText css={rewardsSecondTextStyle}>$–</NormalText>
-                                </div>
-                                <SecondaryButton>Harvest</SecondaryButton>
-                            </Container>
-                        </div>
+                    <div css={boxStyle}>
+                        <Container css={titleBoxStyle}>
+                            <TitleText>Balance</TitleText>
+                            <NormalText align={"right"}>– ($–)</NormalText>
+                        </Container>
+                        <form>
+                            <InputNumber
+                                value={state.toDepositValue}
+                                onChange={onToDepositValueChanged}
+                                placeholder="0"
+                                css={inputStyle}
+                            >
+                                <div css={maxButtonStyle} onClick={onMaxClicked}>MAX</div>
+                            </InputNumber>
+                            <PrimaryButton
+                                fullWidth
+                                {...state.toDepositValue === 0 && { disabled: true }}
+                            >
+                                Deposit
+                            </PrimaryButton>
+                        </form>
                     </div>
-                    <div css={contractBoxStyle}>
-                        <div className="flex flex-col space-y-4">
 
-                            <Container css={contractLinksContainerStyle}>
-                                <LinkButton
-                                    href={"https://exchange.pancakeswap.finance/#/add/0xa184088a740c695E156F91f5cC086a06bb78b827/BNB"}
-                                    css={linkButtonStyle}
-                                >
-                                    Create LP&nbsp;<MagicWandIcon />
-                                </LinkButton>
+                    <div css={boxStyle}>
+                        <Container css={titleBoxStyle}>
+                            <TitleText>Deposit</TitleText>
+                            <NormalText align={"right"} css={depositSubTextStyle}>
+                                – ($–)
+                                <SubText css={normalSubTextStyle}>% of vault</SubText>
+                            </NormalText>
+                        </Container>
 
-                                <LinkButton
-                                    href={"https://bscscan.com/address/0x0000000000000000000000000000000000000000"}
-                                    css={linkButtonStyle}
-                                >
-                                    Farm contract&nbsp;<LinkIcon />
-                                </LinkButton>
-
-                                <LinkButton
-                                    href={"https://bscscan.com/address/0x65168C89a16FBEd4e2e418D5245FF626Bd66874b"}
-                                    css={linkButtonStyle}
-                                >
-                                    Vault contract&nbsp;<LinkIcon />
-                                </LinkButton>
-                            </Container>
-
-                            <Container css={contractDetailContainerStyle}>
-                                <div css={contractDetailBoxStyle}>
-                                    <div>
-                                        <div><b>Vault Details</b></div>
-                                        <div>
-                                            Asset:
-                                            <CommonLink
-                                                href={"https://pancakeswap.info/pair/0x4d0228ebeb39f6d2f29ba528e2d15fc9121ead56"}
-                                                css={assetLinkStyle}
-                                            >
-                                                WBNB-AUTO LP
-                                            </CommonLink>
-                                            <span css={subTextStyle}> ($2,865.66)</span>
-                                        </div>
-                                        <div>AUTO multiplier: 15.00x</div>
-                                        <div>Type: staking</div>
-                                        <div>Farm name: AUTO</div>
-                                    </div>
-                                </div>
-                                <div css={contractDetailBoxStyle}>
-                                    <div>
-                                        <div><b>APY Calculations</b></div>
-                                        <div> Farm APR: 0.0%<span css={subTextStyle}> (0.00%&nbsp;daily)</span></div>
-                                        <div> Optimal compounds per year: 0</div>
-                                        <div> Farm APY: 0.0%</div>
-                                        <div> AUTO APR: 187.7%<span css={subTextStyle}> (0.52%&nbsp;daily)</span>
-                                        </div>
-                                        <div> Total APY: 187.7%</div>
-                                    </div>
-                                </div>
-                                <div css={contractDetailBoxStyle}>
-                                    <div>
-                                        <div><b>Fees</b></div>
-                                        <div> Controller fee: none</div>
-                                        <div> Platform fee: none</div>
-                                        <div> AUTO buyback rate: none</div>
-                                        <div> Entrance fee: none</div>
-                                        <div> Withdrawal fee: none</div>
-                                    </div>
-                                </div>
-                            </Container>
-                        </div>
-
+                        <form>
+                            <InputNumber
+                                value={state.toWithdrawValue}
+                                onChange={onToWithdrawValueChanged}
+                                placeholder="0"
+                                css={inputStyle}
+                            >
+                                <div css={maxButtonStyle} onClick={onMaxClicked}>MAX</div>
+                            </InputNumber>
+                            <PrimaryButton
+                                fullWidth
+                                {...state.toWithdrawValue === 0 && { disabled: true }}
+                            >
+                                Withdraw
+                            </PrimaryButton>
+                        </form>
                     </div>
+
+                    <Container css={rewardsBoxStyle}>
+                        <TitleText css={rewardsTitleStyle}>AUTO Rewards</TitleText>
+                        <div css={rewardsSubBoxStyle}>
+                            <TitleText css={rewardsFirstTextStyle}>–</TitleText>
+                            <SubText css={rewardsSecondTextStyle}>$–</SubText>
+                        </div>
+                        <SecondaryButton css={harvestButtonStyle}>Harvest</SecondaryButton>
+                    </Container>
                 </div>
             </div>
+            <div css={contractBoxStyle}>
+                <div>
+                    <Container css={contractLinksContainerStyle}>
+                        <LinkButton
+                            href={`https://exchange.pancakeswap.finance/#/add/${tokenData.wantToken0Address}/BNB`}
+                            css={linkButtonStyle}
+                        >
+                            Create LP&nbsp;<MagicWandIcon />
+                        </LinkButton>
 
+                        <LinkButton
+                            href={`https://bscscan.com/address/${tokenData.farmContractAddress}`}
+                            css={linkButtonStyle}
+                        >
+                            Farm contract&nbsp;<LinkIcon />
+                        </LinkButton>
+
+                        <LinkButton
+                            href={`https://bscscan.com/address/${tokenData.poolInfo[4]}`}
+                            css={linkButtonStyle}
+                        >
+                            Vault contract&nbsp;<LinkIcon />
+                        </LinkButton>
+                    </Container>
+
+                    <Container css={contractDetailContainerStyle}>
+                        <div css={contractDetailBoxStyle}>
+                            <div>
+                                <div><b>Vault Details</b></div>
+                                <div>
+                                    Asset:
+                                    <CommonLink
+                                        href={`${tokenData.wantLink}`}
+                                        css={assetLinkStyle}
+                                    >
+                                        {tokenData.name}
+                                    </CommonLink>
+                                    <span css={subTextStyle}> (${Number(Number(tokenData.wantPrice).toFixed(2)).toLocaleString()})</span>
+                                </div>
+                                <div>{tokenData.farm} multiplier: {tokenData.autoX}</div>
+                                <div>Type: {tokenData.stratType}</div>
+                                <div>Farm name: {tokenData.farm}</div>
+                            </div>
+                        </div>
+                        <div css={contractDetailBoxStyle}>
+                            <div>
+                                <div><b>APY Calculations</b></div>
+                                <div> Farm APR: {tokenData.APR.toFixed(1)}%<span css={subTextStyle}> (0.00%&nbsp;daily)</span>
+                                </div>
+                                <div> Optimal compounds per year: {tokenData.compoundsPerYear}</div>
+                                <div> Farm APY: {tokenData.APY.toFixed(1)}%</div>
+                                <div> AUTO APR: {(tokenData.APR_AUTO * 100).toFixed(1)}%<span css={subTextStyle}> (0.52%&nbsp;daily)</span>
+                                </div>
+                                <div> Total APY: {(tokenData.APY_total * 100).toFixed(1)}%</div>
+                            </div>
+                        </div>
+                        <div css={contractDetailBoxStyle}>
+                            <div>
+                                <div><b>Fees</b></div>
+                                <div> Controller fee: {tokenData.controllerFeeText}</div>
+                                <div> Platform fee: none</div>
+                                <div> AUTO buyback rate: {tokenData.buybackrateText}</div>
+                                <div> Entrance fee: {tokenData.entranceFeeText}</div>
+                                <div> Withdrawal fee: none</div>
+                            </div>
+                        </div>
+                    </Container>
+                </div>
+
+            </div>
         </div>
     );
 }
@@ -195,13 +188,23 @@ const style = css`
 `;
 
 const paymentBoxStyle = (theme: Theme) => css`
-    width: calc(100% - ${12 * 4}px);
+    width: calc(100% - 48px);
     height: 100%;
     padding: 12px;
     margin: 20px 12px;
     border: 1px solid ${theme.colours.border};
+    background-color: ${theme.colours.box.background};
     border-radius: 8px;
-    box-shadow: ${theme.borderAndShadow.boxAndShadow};
+    box-shadow: ${theme.borderAndShadow.boxShadow5};
+
+    ${theme.breakpoints.only("sm")} {
+        width: unset;
+    }
+
+    ${theme.breakpoints.down("xs")} {
+        width: 320px;
+        margin: 20px auto;
+    }
 `;
 
 const contractBoxStyle = (theme: Theme) => css`
@@ -215,26 +218,56 @@ const paymentInnerBoxStyle = (theme: Theme) => css`
     flex-direction: row;
     align-items: stretch;
 
-    > div:not(:nth-child(1)) {
+    > div:not(:nth-of-type(1)) {
         margin-left: 12px;
+    }
+
+    ${theme.breakpoints.down("sm")} {
+        display: flex;
+        flex-direction: column;
+
+        > div:not(:nth-of-type(1)) {
+            margin-left: 0;
+            margin-top: 12px;
+        }
     }
 `;
 
 const boxStyle = (theme: Theme) => css`
     flex: 1 1 auto;
     flex-direction: column;
+
+    ${theme.breakpoints.down("sm")} {
+        width: 100%;
+    }
 `;
 
 const titleBoxStyle = (theme: Theme) => css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 48px;
+    height: 40px;
+
+    ${theme.breakpoints.down("sm")} {
+        height: auto;
+    }
+`;
+
+const depositSubTextStyle = (theme: Theme) => css`
+
+    ${theme.breakpoints.down("sm")} {
+        min-height: 40px;
+    }
 `;
 
 const rewardsBoxStyle = (theme: Theme) => css`
     display: flex;
     flex-direction: column;
+
+    ${theme.breakpoints.down("xs")} {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 `;
 
 const rewardsTitleStyle = (theme: Theme) => css`
@@ -246,8 +279,17 @@ const rewardsSubBoxStyle = (theme: Theme) => css`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 57px;
+    height: 50px;
     margin: 4px 0 8px 0;
+
+    ${theme.breakpoints.down("sm")} {
+        height: auto;
+    }
+
+    ${theme.breakpoints.down("xs")} {
+        height: 34px;
+        margin-left: auto;
+    }
 `;
 
 const maxButtonStyle = (theme: Theme) => css`
@@ -271,13 +313,28 @@ const rewardsSecondTextStyle = (theme: Theme) => css`
     font-size: 16px;
 `;
 
+const harvestButtonStyle = (theme: Theme) => css`
+    font-size: 16px;
+
+    ${theme.breakpoints.down("sm")} {
+        width: 100%;
+    }
+`;
+
 const linkButtonStyle = (theme: Theme) => css`
     font-size: 16px;
     line-height: 15px;
 
-    :not(:first-of-type) {
-        margin-left: 16px;
+    ${theme.breakpoints.up("sm")} {
+        :not(:first-of-type) {
+            margin-left: 16px;
+        }
     }
+
+    ${theme.breakpoints.only("xs")} {
+        margin: 0;
+    }
+
 `;
 
 const contractLinksContainerStyle = (theme: Theme) => css`
@@ -285,6 +342,12 @@ const contractLinksContainerStyle = (theme: Theme) => css`
     flex-wrap: wrap;
     flex-direction: row;
     margin-bottom: 16px;
+
+    ${theme.breakpoints.only("xs")} {
+        display: grid;
+        grid-gap: 8px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 `;
 
 const contractDetailContainerStyle = (theme: Theme) => css`
@@ -292,12 +355,27 @@ const contractDetailContainerStyle = (theme: Theme) => css`
     flex-wrap: wrap;
     flex-direction: row;
     margin: 0 -8px;
+
+    ${theme.breakpoints.only("xs")} {
+        display: grid;
+        grid-gap: 16px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 `;
 
 const contractDetailBoxStyle = (theme: Theme) => css`
     width: 149px;
     margin: 0 8px;
     font-size: 12px;
+    
+    > b {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    ${theme.breakpoints.only("xs")} {
+        width: 100%;
+    }
 `;
 
 const assetLinkStyle = (theme: Theme) => css`
@@ -318,4 +396,10 @@ const subTextStyle = (theme: Theme) => css`
     color: ${theme.colours.defaultText};
 `;
 
-export default TokenPayment;
+const normalSubTextStyle = (theme: Theme) => css`
+    ${theme.breakpoints.down("sm")} {
+        font-size: 14px;
+    }
+`;
+
+export default memo(TokenPayment);

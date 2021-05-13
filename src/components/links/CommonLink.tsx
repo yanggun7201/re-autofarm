@@ -1,44 +1,34 @@
-import React from "react";
-import { css, useTheme } from "@emotion/react";
+import React, { memo } from "react";
+import { css } from "@emotion/react";
 import { Theme } from "../../theme";
-import { ReactComponent as WalletIcon } from "../../images/wallet-icon.svg";
-import { NOOP } from "../../constants";
+import { Link } from "react-router-dom";
 
 type Props = {
-    title: string,
-    onClick?: () => void,
+    children: React.ReactNode,
+    href: string,
+    className?: string,
 };
 
-const OutlineButton: React.FC<Props> = ({ title = "", onClick = NOOP }) => (
-    <button css={walletButtonStyle} onClick={onClick}>
-        <WalletIcon css={walletIconStyle} />
-        <div css={walletLabelStyle}>{title}</div>
-    </button>
-);
+const CommonLink: React.FC<Props> = ({ children = "", href = "/", className = "" }) => {
+    if (href.startsWith("http")) {
+        return <a href={href} target="_blank" rel="noreferrer" css={style} className={className}>{children}</a>
+    }
 
-const walletButtonStyle = (theme: Theme) => css`
-    border: 1px solid #3c81f6;
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 34px;
-    padding: 8px;
-    border-radius: 5px;
+    return (
+        <Link to={href} css={style} className={className}>{children}</Link>
+    );
+}
+
+const style = (theme: Theme) => css`
+    font-size: 14px;
+    color: ${theme.colours.link};
+    cursor: pointer;
+
+    :active,
+    :visited {
+        color: ${theme.colours.link};
+    }
 `;
 
-const walletIconStyle = (theme: Theme) => css`
-    color: #3c81f6;
-    width: 16px;
-    height: 16px;
-`;
-
-const walletLabelStyle = (theme: Theme) => css`
-    font-size: 16px;
-    color: #3c81f6;
-    font-weight: 400;
-    margin-left: 10px;
-`;
-
-export default OutlineButton;
+export default memo(CommonLink);
 

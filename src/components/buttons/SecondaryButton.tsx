@@ -1,46 +1,56 @@
 import React from "react";
-import { css, useTheme } from "@emotion/react";
+import { css } from "@emotion/react";
 import { Theme } from "../../theme";
-import { ReactComponent as WalletIcon } from "../../images/wallet-icon.svg";
 import { NOOP } from "../../constants";
+import PrimaryButton from "./PrimaryButton";
 
 type Props = {
     children?: React.ReactNode,
-    onClick?: () => void,
+    onClick?: () => void | Promise<void>,
     className?: string,
     disabled?: boolean,
+    fullWidth?: boolean,
 };
 
-const PrimaryButton: React.FC<Props> = ({ disabled = false, children, onClick = NOOP, className = "" }) => (
-    <button
-        css={style(disabled)}
+const SecondaryButton: React.FC<Props> = ({
+    disabled = false,
+    children,
+    onClick = NOOP,
+    className = "",
+    fullWidth = false,
+}) => (
+    <PrimaryButton
+        css={style(disabled, fullWidth)}
         className={className}
         onClick={onClick}
         {...disabled && { disabled: true }}
     >
         {children}
-    </button>
+    </PrimaryButton>
 );
 
-const style = (disabled: boolean) => (theme: Theme) => css`
-    border: 1px solid ${theme.colours.button.primary};
-    background-color: ${theme.colours.button.primary};
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    padding: 8px;
-    border-radius: 5px;
-    width: 100%;
-    font-size: 16px;
-    font-weight: bold;
+const style = (disabled: boolean, fullWidth: boolean) => (theme: Theme) => css`
+    background-color: ${theme.colours.button.secondary};
+    border: 1px solid ${theme.colours.button.secondary};
+    color: ${theme.colours.link};
 
-    ${disabled && css`
-        border: 1px solid ${theme.colours.button.disabled};
-        background-color: ${theme.colours.button.disabled};
+    ${fullWidth && css`
+        width: 100%;
     `};
+
+    ${disabled
+            ? css`
+                border: 1px solid ${theme.colours.button.secondary};
+                background-color: ${theme.colours.button.secondary};
+            `
+            : css`
+                cursor: pointer;
+
+                :hover {
+                    background-color: ${theme.colours.button.hover};
+                }
+            `
+    };
 `;
 
-export default PrimaryButton;
-
+export default SecondaryButton;

@@ -1,125 +1,103 @@
-import React from 'react';
-import { useParams } from "react-router";
+import React, { useCallback } from 'react';
 import { css } from "@emotion/react";
-import { Theme } from "../../theme";
-import { ReactComponent as ChevronDownIcon } from "../../images/chevron-down-icon.svg";
-import { ReactComponent as ArrowDownIcon } from "../../images/arrow-down-icon.svg";
+import { ReactComponent as ChevronDownIcon } from "../../../images/chevron-down-icon.svg";
+import { Theme } from "../../../theme";
+import SelectCoinModal from "../../../components/modals/SelectCoinModal";
+import useSetState from "../../../core/hooks/useSetState";
+import { CoinImageType } from "../../../data/CoinImageData";
 
-const SwapPage: React.FC = () => {
-    const { outToken } = useParams<{ outToken?: string }>();
-    console.log('outToken', outToken);
+type Props = {
+    title: string,
+    selectedCoin?: CoinImageType | null,
+    setCoin: (selectedCoin: CoinImageType) => void,
+};
+
+type DEFAULT_STATE = {
+    openSelectCoinModal: boolean,
+};
+
+const DEFAULT_APP_STATE = {
+    openSelectCoinModal: false,
+};
+
+const CoinFromToBox: React.FC<Props> = ({
+                                            title = "",
+                                            selectedCoin,
+                                            setCoin,
+                                        }) => {
+    const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
+
+    const onOpenCoinModal = useCallback((e: React.MouseEvent) => {
+        setState({ openSelectCoinModal: true });
+    }, [setState]);
+
+    const onCloseCoinModal = useCallback(() => {
+        setState({ openSelectCoinModal: false });
+    }, [setState]);
+
+    const onChooseCoin = useCallback((selectedCoin: CoinImageType) => {
+        setCoin(selectedCoin);
+        onCloseCoinModal();
+    }, [setCoin, onCloseCoinModal]);
 
     return (
-        <div css={style}>
-            <div css={mainTitleStyle}>
-                AutoSwap is in public alpha. Use at your
-                own risk.
-            </div>
-            <div css={boxContainerStyle}>
-                <div css={boxStyle}>
-                    <div css={innerBoxStyle}>
-                        <div css={titleStyle}>Swap</div>
-                        <div css={fromToBoxContainerStyle}>
-                            <div css={fromToBoxStyle}>
-                                <div css={fromToTitleBoxStyle}>
-                                    <div css={fromToTitleStyle}>From</div>
-                                    <div css={fromToSubTitleStyle}>
-                                        Balance:
-                                        <span className="font-mono"></span>
-                                    </div>
-                                </div>
-                                <div
-                                    css={coinInputSelectBoxContainerStyle}>
-                                    <input type="number" css={coinInputSelectBoxInputStyle} value="" />
-                                    <div css={coinInputSelectBoxCoinBoxStyle}>
-                                        <img
-                                            src="https://exchange.pancakeswap.finance/images/coins/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c.png"
-                                            css={coinIconStyle}
-                                        />
-                                        <span css={coinNameStyle}>BNB</span>
-                                        <ChevronDownIcon css={chevronStyle}/>
-                                    </div>
-                                </div>
-                                <div css={spaceStyle}>&nbsp;</div>
-                            </div>
-                        </div>
-
-                        <div css={arrowBoxContainerStyle}>
-                            <div css={downArrowContainerStyle}>
-                                <ArrowDownIcon css={downArrowStyle}/>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-
-                        <div className="flex flex-col space-y-1">
-                            <div>Slippage tolerance</div>
-                            <div className="flex space-x-2">
-                                <div
-                                    className="p-1 px-2 text-center rounded cursor-pointer bg-gray-200 dark:bg-gray-800">0.1%
-                                </div>
-                                <div
-                                    className="p-1 px-2 text-center rounded cursor-pointer bg-gray-200 dark:bg-gray-800">0.5%
-                                </div>
-                                <div
-                                    className="p-1 px-2 text-center rounded cursor-pointer bg-blue-400 dark:bg-blue-500">1%
-                                </div>
-                                <div className="flex-auto"><input
-                                    className="bg-gray-200 dark:bg-gray-800 rounded p-1 px-2 w-full focus:outline-none"
-                                    type="number" placeholder="Custom" value="" /></div>
-                            </div>
-                        </div>
-                        <div className="pt-4">
-                            <div className="text-center dark:text-gray-400 rounded-lg p-3 dark:bg-gray-800">Wallet not
-                                connected
-                            </div>
-                        </div>
+        <div css={fromToBoxContainerStyle}>
+            <div css={fromToBoxStyle}>
+                <div css={fromToTitleBoxStyle}>
+                    <div css={fromToTitleStyle}>{title}</div>
+                    <div css={fromToSubTitleStyle}>
+                        Balance:
+                        <span className="font-mono"></span>
                     </div>
                 </div>
-                <div className="w-full sm:w-auto transition-all transform duration-500"></div>
+                <div css={coinInputSelectBoxContainerStyle}>
+                    <input type="number" css={coinInputSelectBoxInputStyle} />
+                    <div css={coinInputSelectBoxCoinBoxStyle} onClick={onOpenCoinModal}>
+                        {selectedCoin
+                            ? (
+                                <>
+                                    <img
+                                        src={selectedCoin.imagePath}
+                                        alt={selectedCoin.name}
+                                        css={coinIconStyle}
+                                    />
+                                    <span css={coinNameStyle}>{selectedCoin.name}</span>
+                                </>
+                            )
+                            : (
+                                <span css={coinNamePlaceholderStyle}>Select token</span>
+                            )
+                        }
+                        <ChevronDownIcon css={chevronStyle} />
+                    </div>
+                </div>
+                <div css={spaceStyle}>≈ $0.00(-0%)</div>
             </div>
+
+            {state.openSelectCoinModal && (
+                <SelectCoinModal onChooseCoin={onChooseCoin} onClose={onCloseCoinModal} />
+            )}
         </div>
     );
 };
 
-const style = css`
-`;
-
-const mainTitleStyle = css`
-    height: 88px;
-    margin: 32px 16px;
-`;
-
-const boxContainerStyle = css`
-    height: 548px;
-`;
-
-const boxStyle = css`
-    width: 435px;
-    height: 516px;
-`;
-
-const innerBoxStyle = (theme: Theme) => css`
-    width: 435px;
-    height: 516px;
-    padding: 32px;
-    border: 1px solid ${theme.colours.border};
-`;
-
-const titleStyle = css`
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 16px;
-`;
-
 const fromToBoxContainerStyle = css`
     width: 100%;
     height: 98px;
+
+    .pure-modal {
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 24px;
+        overflow: hidden;
+
+        max-height: calc(100% - 120px);
+
+        .panel-body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    }
 `;
 
 const fromToBoxStyle = css`
@@ -131,16 +109,19 @@ const fromToTitleBoxStyle = css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 4px;
 `;
 
-const fromToTitleStyle = css`
+const fromToTitleStyle = (theme: Theme) => css`
     font-size: 14px;
     font-weight: bold;
+    color: ${theme.colours.text};
 `;
 
-const fromToSubTitleStyle = css`
+const fromToSubTitleStyle = (theme: Theme) => css`
     font-size: 14px;
     font-weight: 400;
+    color: ${theme.colours.swap.subTitle};
 `;
 
 const coinInputSelectBoxContainerStyle = (theme: Theme) => css`
@@ -150,18 +131,39 @@ const coinInputSelectBoxContainerStyle = (theme: Theme) => css`
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    border-radius: 4px;
+    overflow: hidden;
+    padding-right: 12px;
+    background-color: ${theme.colours.swap.coinInputBackground};
 `;
 
 const coinInputSelectBoxInputStyle = (theme: Theme) => css`
     height: 48px;
     padding: 12px 0 12px 12px;
-    width: 257px;
+    max-width: 257px;
+    flex-grow: 1;
+    width: 100px;
+    font-size: 17px;
+    font-weight: 400;
+    border: 0;
+    background-color: ${theme.colours.swap.coinInputBackground};
+    color: ${theme.colours.text};
+
+    :active,
+    :focus {
+        outline: unset;
+    }
 `;
 
 const coinInputSelectBoxCoinBoxStyle = (theme: Theme) => css`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    margin-left: 12px;
+    height: 100%;
+    cursor: pointer;
 `;
 
 const coinIconStyle = (theme: Theme) => css`
@@ -171,41 +173,34 @@ const coinIconStyle = (theme: Theme) => css`
 
 const coinNameStyle = (theme: Theme) => css`
     font-size: 16px;
-    font-weight: 600;
-    color: #e3e7ea;
+    font-weight: bold;
+    margin: 0 5px;
+    color: ${theme.colours.swap.coinName};
+`;
+
+const coinNamePlaceholderStyle = (theme: Theme) => css`
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0 5px;
+    color: ${theme.colours.swap.blackGrayText};
+    width: max-content;
 `;
 
 const chevronStyle = (theme: Theme) => css`
-    width: 12px;
-    height: 12px;
-    margin-left: 4px;
-    margin-right: 4px;
+    width: 16px;
+    height: 16px;
+    margin-left: 2px;
+    margin-right: 2px;
+    fill: ${theme.colours.text};
 `;
 
 const spaceStyle = (theme: Theme) => css`
     height: 20px;
+    color: #6a7380;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: right;
+    margin-top: 4px;
 `;
 
-const arrowBoxContainerStyle = (theme: Theme) => css`
-    height: 30px;
-    width: 100%;
-    margin-bottom: 16px;
-`;
-
-const downArrowContainerStyle = (theme: Theme) => css`
-    height: 24px;
-    width: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background-color: #d1d5da;
-`;
-
-const downArrowStyle = (theme: Theme) => css`
-    height: 16px;
-    width: 16px;
-    color: black;
-`;
-
-export default SwapPage;
+export default CoinFromToBox;

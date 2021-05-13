@@ -1,63 +1,67 @@
 import React, { memo } from "react";
-import Container from "../layouts/Container";
 import { css } from "@emotion/react";
 import { Theme } from "../../theme";
 import CommonLink from "../links/CommonLink";
-import { ReactComponent as TelegramIcon } from "../../images/telegram-icon.svg";
-import { ReactComponent as MediumIcon } from "../../images/medium-icon.svg";
-import { ReactComponent as TwitterIcon } from "../../images/twitter-icon.svg";
-import { ReactComponent as DiscordIcon } from "../../images/discord-icon.svg";
 
-const ContactUs: React.FC = () => {
+const LearnMore: React.FC = () => {
     return (
-        <div css={itemContainerStyle}>
-            <div css={itemContainerTitleStyle}>Contact Us</div>
-            <div css={contactUsContainerStyle}>
-                <div>
-                    <span css={itemSemiTitleStyle}>Business Enquiries</span>
-                    <br />
-                    <a href="mailto:hello@autofarm.network" css={mailLinkStyle}>hello@autofarm.network</a>
-                </div>
-                <div>
-                    <span css={itemSemiTitleStyle}>Customer Support</span>
-                    <br />
-                    <a href="mailto:support@autofarm.network" css={mailLinkStyle}>support@autofarm.network</a>
-                </div>
+        <div css={style}>
+            <div css={titleStyle}>Learn More</div>
+            <div css={itemContainerStyle}>
+                <CommonLink
+                    css={linkStyle}
+                    href="https://github.com/autofarm-network/autofarm_audits/raw/main/CertiK%20Audit%20Report%20280321.pdf"
+                >
+                    Audit
+                </CommonLink>
+                <CommonLink
+                    css={linkStyle}
+                    href="https://github.com/autofarm-network/autofarmV2"
+                >
+                    Github
+                </CommonLink>
+                <CommonLink
+                    css={linkStyle}
+                    href="https://bscscan.com/address/0x0895196562c7868c5be92459fae7f877ed450452"
+                >
+                    Contract
+                </CommonLink>
+                <CommonLink
+                    css={linkStyle}
+                    href="https://autofarm.gitbook.io/autofarm-network/"
+                >
+                    Wiki
+                </CommonLink>
             </div>
         </div>
     )
 };
 
-const itemContainerStyle = css`
+const style = css`
     display: flex;
     flex-direction: column;
     font-size: 16px;
 `;
 
-const itemContainerTitleStyle = (theme: Theme) => css`
+const titleStyle = (theme: Theme) => css`
     font-size: 20px;
     font-weight: bold;
     color: ${theme.colours.text};
     margin-bottom: 14px;
 `;
 
-const contactUsContainerStyle = (theme: Theme) => css`
+const itemContainerStyle = (theme: Theme) => css`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+`;
 
-    > div {
-        margin-bottom: 6px;
+const linkStyle = (theme: Theme) => css`
+    font-size: 16px;
+    color: ${theme.colours.text};
+
+    :not(:first-of-type) {
+        margin-left: 20px;
     }
-`;
-
-const itemSemiTitleStyle = (theme: Theme) => css`
-    font-weight: bold;
-    color: ${theme.colours.text};
-`;
-
-const mailLinkStyle = (theme: Theme) => css`
-    text-decoration: none;
-    color: ${theme.colours.text};
 
     :active,
     :focus,
@@ -66,4 +70,4 @@ const mailLinkStyle = (theme: Theme) => css`
     }
 `;
 
-export default memo(ContactUs);
+export default memo(LearnMore);

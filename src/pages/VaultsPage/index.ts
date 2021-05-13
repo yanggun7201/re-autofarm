@@ -1,3 +1,3 @@
-import DashboardPage from "./DashboardPage";
+import VaultsPage from "./VaultsPage";
 
-export default DashboardPage;
+export default VaultsPage;

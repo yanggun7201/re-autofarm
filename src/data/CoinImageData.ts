@@ -1,16 +1,22 @@
-import data from "./stats.json";
+import coinImages from "./coinImages.json";
 
-export type StatsDataType = {
-    "platformTVL": number,
-    "priceAUTO": string,
-    "AUTOMaxSupply": number,
-    "AUTOBurnt": number,
-    "AUTOMaxCirculating": number,
-    "AUTOTotalSupply": number,
-    "AUTOMarketCap": number,
-    "AUTOMarketCapFullyDiluted": number
-}
+export type CoinImageType = {
+    name: string,
+    imagePath: string,
+};
 
-export default {
-    ...data,
-}
+export type CoinImageMapType = {
+    [key: string]: string;
+};
+
+export const coinImageMap: CoinImageMapType = (() => {
+    const map: CoinImageMapType = {};
+
+    coinImages.forEach(coin => {
+        map[coin.name] = coin.imagePath;
+    });
+
+    return map;
+})();
+
+export default coinImages;

@@ -1,3 +1,6 @@
 {
-    "extends": "./node_modules/eslint-config-react-app/index.js"
+    "extends": "./node_modules/eslint-config-react-app/index.js",
+    "rules": {
+        "import/no-anonymous-default-export": "off"
+    }
 }

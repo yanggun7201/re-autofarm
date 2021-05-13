@@ -1,6 +1,6 @@
-import colours from "./colours";
 import transitions from './transitions';
-import { fonts } from "./fonts";
+
+const placeholderColor = "#9ca3af";
 
 const mixins = {
     bloop: `
@@ -12,10 +12,9 @@ const mixins = {
     bloopScale: `
         transform: scale(1.1);
     `,
+    placeholderColor: placeholderColor,
     placeholderAttributes: (content?: any) => `
-        font-family: ${fonts.frutiger};
-        font-weight: ${fonts.weights.light};
-        color: ${colours.grey[450]};
+        color: ${placeholderColor};
         opacity: 1; /** Safari / Firefox **/
 
         ${content};

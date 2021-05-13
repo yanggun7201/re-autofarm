@@ -1,14 +1,17 @@
-import React, { useCallback } from "react";
+import React, { memo, useCallback } from "react";
 import { css } from "@emotion/react";
-import { Theme } from "../../../../theme";
+import Collapse from '@kunukn/react-collapse';
+import millify from 'millify';
 import TableHeaderContainer from "./TableHeaderContainer";
 import TokenDataCellContainer from "./TokenDataCellContainer";
-import TitleText from "../../../../components/text/TitleText";
-import NormalText from "../../../../components/text/NormalText";
-import Container from "../../../../components/layouts/Container";
-import { ReactComponent as ChevronDownIcon } from "../../../../images/chevron-down-icon.svg";
-import useSetState from "../../../../core/hooks/useSetState";
+import TitleText from "../../../components/text/TitleText";
+import SubText from "../../../components/text/SubText";
+import Container from "../../../components/layouts/Container";
+import { ReactComponent as ChevronDownIcon } from "../../../images/chevron-down-icon.svg";
+import useSetState from "../../../core/hooks/useSetState";
 import TokenPayment from "./TokenPayment";
+import { Theme } from "../../../theme";
+import { TokenDataType } from "../../../includes/constants";
 
 type DEFAULT_STATE = {
     isTradeOpen: boolean,
@@ -19,11 +22,11 @@ const DEFAULT_APP_STATE = {
 };
 
 type Props = {
-    children?: React.ReactNode,
     className?: string,
+    tokenData: TokenDataType,
 };
 
-const TokenDataRow: React.FC<Props> = ({ children, className }) => {
+const TokenDataRow: React.FC<Props> = ({ className, tokenData }) => {
     const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
 
     const toggleTrade = useCallback(() => {
@@ -51,38 +54,46 @@ const TokenDataRow: React.FC<Props> = ({ children, className }) => {
                 </div>
                 <TableHeaderContainer css={tokenDataRowStyle} onClick={toggleTrade}>
                     <TokenDataCellContainer>
-                        <TitleText>WBNB-AUTO LP</TitleText>
+                        <TitleText css={titleTextStyle}>{tokenData.name}</TitleText>
                         <div css={tokenCellFarmContainerStyle}>
-                            <NormalText>Farm: AUTO</NormalText>
-                            <NormalText>TVL $71.3M</NormalText>
+                            <SubText>Farm: {tokenData.farm}</SubText>
+                            <SubText>TVL ${abbreviateNumber(tokenData.total)}</SubText>
                         </div>
                     </TokenDataCellContainer>
                     <TokenDataCellContainer align={"right"}>
-                        <TitleText>187%</TitleText>
-                        <NormalText>0.51%</NormalText>
-                        <NormalText>15.0x</NormalText>
+                        <TitleText>{abbreviateNumber(Number(tokenData.apy))}%</TitleText>
+                        <SubText>0.51%</SubText>
+                        <SubText>{tokenData.autoX}</SubText>
                     </TokenDataCellContainer>
                     <TokenDataCellContainer align={"right"}>
-                        <NormalText>–</NormalText>
-                        <NormalText>–</NormalText>
-                        <NormalText>–</NormalText>
+                        <SubText>–</SubText>
+                        <SubText>–</SubText>
+                        <SubText>–</SubText>
                     </TokenDataCellContainer>
                     <Container>
                         <ChevronDownIcon css={iconColorStyle(state.isTradeOpen)} />
                     </Container>
                 </TableHeaderContainer>
             </div>
-            {state.isTradeOpen && (
-                <TokenPayment />
-            )}
+
+            <Collapse isOpen={state.isTradeOpen} css={collapseStyle}>
+                <TokenPayment css={collapseContentStyle(state.isTradeOpen)} tokenData={tokenData} />
+            </Collapse>
         </div>
     );
 }
 
+const abbreviateNumber = (num: number) => {
+    return millify(num, {
+        ...(num > 1000 && { precision: 1 })
+    });
+};
+
 const style = (theme: Theme) => css`
+    border-bottom: 1px solid ${theme.colours.border};
 `;
 
-const tokenIconContainerStyle = css`
+const tokenIconContainerStyle = (theme: Theme) => css`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,15 +101,25 @@ const tokenIconContainerStyle = css`
     position: absolute;
     height: 60px;
     padding: 0;
+
+    ${theme.breakpoints.only("xs")} {
+        width: 40px;
+        justify-content: flex-start;
+    }
 `;
 
-const tokenIconStyle = (align: "left" | "right") => css`
+const tokenIconStyle = (align: "left" | "right") => (theme: Theme) => css`
     width: 32px;
     height: 32px;
 
     ${align === "right" && css`
         margin-left: -16px;
     `};
+
+    ${theme.breakpoints.only("xs")} {
+        width: 24px;
+        height: 24px;
+    }
 `;
 
 const tokenCellFarmContainerStyle = css`
@@ -106,12 +127,19 @@ const tokenCellFarmContainerStyle = css`
     flex-direction: column;
 `;
 
-const tokenDataRowStyle = css`
+const tokenDataRowStyle = (theme: Theme) => css`
     position: relative;
+    padding-left: 80px;
+    height: 74px;
+
+    ${theme.breakpoints.only("xs")} {
+        height: 52px;
+        padding: 0 0 0 40px;
+    }
 `;
 
 const iconColorStyle = (isTradeOpen: boolean) => (theme: Theme) => css`
-    fill: ${theme.colours.defaultText};
+    fill: ${theme.colours.text};
 
     ${isTradeOpen && css`
         transform: rotateX(180deg);
@@ -123,7 +151,36 @@ const tableHeaderWrapperStyle = (theme: Theme) => css`
     width: 100%;
     height: 80px;
     align-items: center;
-    border-bottom: 1px solid ${theme.colours.border};
+
+    ${theme.breakpoints.only("xs")} {
+        height: 52px;
+        margin: 8px 0;
+        padding: 0 8px;
+    }
 `;
 
-export default TokenDataRow;
+const collapseStyle = (theme: Theme) => css`
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1);
+`;
+
+const collapseContentStyle = (isOpen: boolean) => (theme: Theme) => css`
+    border: 1px solid transparent;
+    position: relative;
+    transition: ${theme.transitions.transitionSlowerTime};
+
+    ${isOpen && css`
+        border-color: transparent;
+    `};
+`;
+
+const titleTextStyle = (theme: Theme) => css`
+    ${theme.breakpoints.only("xs")} {
+        height: 20px;
+    }
+`;
+
+export default memo(TokenDataRow);

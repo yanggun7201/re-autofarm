@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { css } from "@emotion/react";
 import { Theme } from "../../theme";
-import { AlignType } from "../../pages/VaultsPage/components/constants";
+import { AlignType } from "../../includes/constants";
 
 type Props = {
     children?: React.ReactNode,

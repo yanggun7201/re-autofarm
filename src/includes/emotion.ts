@@ -1,14 +1,9 @@
-import PropTypes from "prop-types";
+import { Theme } from "../theme";
 
 /**
  * Some emotion (css in js) related utils/constants.
  */
 
-export const extraCss = (extra, theme) => typeof extra === "function" ? extra(theme) : extra;
+export type ExtraCssPropType = string | object | Function;
 
-export const extraCssPropType = PropTypes.oneOfType([PropTypes.object, PropTypes.func]);
-
-export default {
-    extraCss,
-    extraCssPropType,
-};
+export const extraCss = (extra: ExtraCssPropType, theme: Theme) => typeof extra === "function" ? extra(theme) : extra;

@@ -1,36 +1,33 @@
 import breakpoints from "./breakpoints";
-import colours from './colours';
-import { fonts, fontImports } from './fonts';
-import forms from './forms';
-import popover from "./popover";
-import sizes from './sizes';
-import utils from './utils';
+import lightColours from './lightColours';
+import darkColours from './darkColours';
+import colourUtils from "./colourUtils";
+import transitions from "./transitions";
 import borderAndShadow from "./borderAndShadow";
 import zIndex from './zIndex';
-import transform from "./transform";
-import transitions from "./transitions";
-import keyframes from "./keyframes";
 import mixins from "./mixins";
-import tippy from "./tippy";
 
-const theme = {
+const commonTheme = {
     breakpoints,
-    colours,
-    fonts,
-    fontImports,
-    forms,
-    popover,
-    sizes,
-    utils,
+    utils: colourUtils,
+    transitions,
     borderAndShadow,
     zIndex,
-    transform,
-    transitions,
     mixins,
-    tippy,
-    keyframes,
+}
+
+export const lightTheme = {
+    colours: lightColours,
+    isLightMode: true,
+    isDarkMode: false,
+    ...commonTheme,
 };
 
-export type Theme = typeof theme;
+export const darkTheme = {
+    colours: darkColours,
+    isLightMode: false,
+    isDarkMode: true,
+    ...commonTheme,
+};
 
-export default theme;
+export type Theme = typeof darkTheme | typeof lightTheme | any;

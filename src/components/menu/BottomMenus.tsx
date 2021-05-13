@@ -10,57 +10,79 @@ type Props = {
     className?: string,
 };
 
-const Menus: React.FC<Props> = ({ className = "" }) => (
+const BottomMenus: React.FC<Props> = ({ className = "" }) => (
     <div css={style} className={className}>
-        <MenuItem title={"Vaults"} path={"/"}>
+        <MenuItem title={"Vaults"} path={"/"} extraTitleCss={extraTitleCss}>
             <VaultsIcon css={iconStyle} />
         </MenuItem>
-        <MenuItem title={"Swap"} path={"/swap"}>
+        <MenuItem title={"Swap"} path={"/swap"} extraTitleCss={extraTitleCss}>
             <SwapIcon css={iconStyle} />
         </MenuItem>
-        <MenuItem title={"Dashboard"} path={"/dashboard"}>
+        <MenuItem title={"Dashboard"} path={"/dashboard"} extraTitleCss={extraTitleCss}>
             <DashboardIcon css={iconStyle} />
         </MenuItem>
     </div>
 );
 
 const style = (theme: Theme) => css`
-    display: flex;
-    flex-direction: column;
 
-    > a {
-        margin: 8px -8px 0;
-        width: 159px;
-
-        ${theme.breakpoints.up("xxl")} {
-            width: 175px;
-        }
-
-        ${theme.breakpoints.down("lg")} {
-            margin: 0;
-            width: 118px;
-        }
+    ${theme.breakpoints.up("sm")} {
+        display: none;
     }
 
-    > a:first-of-type {
-        margin-top: 0;
+    position: sticky;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: ${theme.colours.box.background};
+
+    border-top: 1px solid ${theme.colours.border};
+
+    ${theme.breakpoints.down("sm")} {
+        > a {
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            height: 56px;
+            padding: 8px;
+
+            &.active {
+                background-color: transparent;
+                background-image: none;
+
+                svg {
+                    fill: ${theme.colours.text};
+                }
+
+                div {
+                    color: ${theme.colours.text} !important;
+                }
+            }
+        }
     }
 `;
 
 const iconStyle = (theme: Theme) => css`
     width: 20px;
     height: 20px;
+    fill: ${theme.colours.defaultText2};
+`;
 
-    ${theme.breakpoints.up("xxl")} {
-        width: 24px;
-        height: 24px;
-    }
-
-    ${theme.breakpoints.down("lg")} {
-        width: 16px;
-        height: 16px;
+const extraTitleCss = (theme: Theme) => css`
+    ${theme.breakpoints.down("sm")} {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 20px;
+        font-size: 13px;
+        margin: 0;
+        color: ${theme.colours.defaultText2};
     }
 `;
 
-export default Menus;
+export default BottomMenus;
 
