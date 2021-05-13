@@ -2,25 +2,23 @@ import React, { memo } from "react";
 import { css } from "@emotion/react";
 import { Theme } from "../../theme";
 
-const ContactUs: React.FC = () => {
-    return (
-        <div css={style}>
-            <div css={titleStyle}>Contact Us</div>
-            <div css={itemContainerStyle}>
-                <div>
-                    <span css={semiTitleStyle}>Business Enquiries</span>
-                    <br />
-                    <a href="mailto:hello@autofarm.network" css={mailStyle}>hello@autofarm.network</a>
-                </div>
-                <div>
-                    <span css={semiTitleStyle}>Customer Support</span>
-                    <br />
-                    <a href="mailto:support@autofarm.network" css={mailStyle}>support@autofarm.network</a>
-                </div>
+const ContactUs: React.FC = () => (
+    <div css={style}>
+        <div css={titleStyle}>Contact Us</div>
+        <div css={itemContainerStyle}>
+            <div>
+                <span css={semiTitleStyle}>Business Enquiries</span>
+                <br />
+                <a href="mailto:hello@autofarm.network" css={mailStyle}>hello@autofarm.network</a>
+            </div>
+            <div>
+                <span css={semiTitleStyle}>Customer Support</span>
+                <br />
+                <a href="mailto:support@autofarm.network" css={mailStyle}>support@autofarm.network</a>
             </div>
         </div>
-    )
-};
+    </div>
+);
 
 const style = css`
     display: flex;

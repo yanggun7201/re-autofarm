@@ -14,7 +14,7 @@ type UpdateFunction = (newState: NewState | NewStateFunction, merge?: boolean) =
  * @param {object} defaultState
  * @returns {[unknown, (...args: any[]) => any]}
  */
-const useSetState = <T> (defaultState: T): [T, UpdateFunction] => {
+const useSetState = <T>(defaultState: T): [T, UpdateFunction] => {
     const defaultStateRef = useRef<T>(defaultState);
     const [state, setState] = useState<T>(defaultState);
 

@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import { css } from "@emotion/react";
 import { Theme } from "../../theme";
-import { ReactComponent as ArrowDownIcon } from "../../images/arrow-down-icon.svg";
 import CoinFromToBox from "./components/CoinFromToBox";
 import useSetState from "../../core/hooks/useSetState";
 import { CoinImageType } from "../../data/CoinImageData";
 import { useConnectWalletContext } from "../../core/contexts/ConnectWalletContext";
 import TertiaryButton from "../../components/buttons/TertiaryButton";
+import { ReactComponent as ArrowDownIcon } from "../../images/arrow-down-icon.svg";
 
 type DEFAULT_STATE = {
     tolerance: number | string,

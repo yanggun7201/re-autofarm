@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { css } from "@emotion/react";
+import { Theme } from "../../theme";
 import useSetState from "../../core/hooks/useSetState";
 import CommonLink from "../../components/links/CommonLink";
-import { Theme } from "../../theme";
 import TertiaryButton from "../../components/buttons/TertiaryButton";
 import { useConnectWalletContext } from "../../core/contexts/ConnectWalletContext";
 import { ReactComponent as CautionIcon } from "../../images/caution-icon.svg";

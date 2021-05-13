@@ -4,14 +4,14 @@ import { css } from "@emotion/react";
 type Props = {
     children?: React.ReactNode,
     className?: string,
-    onClick?: (e:React.MouseEvent) => void,
+    onClick?: (e: React.MouseEvent) => void,
     containerRef?: React.Ref<any>,
 };
 
 const Container: React.FC<Props> = ({
     children,
     className,
-    onClick ,
+    onClick,
     containerRef,
 }) => (
     <div

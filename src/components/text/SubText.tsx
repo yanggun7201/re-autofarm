@@ -9,7 +9,11 @@ type Props = {
     align?: AlignType,
 };
 
-const SubText: React.FC<Props> = ({ children, className, align = "left" }) => (
+const SubText: React.FC<Props> = ({
+    children,
+    className,
+    align = "left"
+}) => (
     <div className={className} css={style(align)}>
         {children}
     </div>

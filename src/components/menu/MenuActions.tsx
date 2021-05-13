@@ -18,7 +18,10 @@ type Props = {
 
 const outToken = "0xa184088a740c695e156f91f5cc086a06bb78b827";
 
-const MenuActions: React.FC<Props> = ({ toggleTheme = NOOP, priceAUTO = '0' }) => {
+const MenuActions: React.FC<Props> = ({
+    toggleTheme = NOOP,
+    priceAUTO = '0'
+}) => {
     const theme: Theme = useTheme();
     const { toggleConnectWalletModal, walletIsConnected, disconnectWallet } = useConnectWalletContext();
 
@@ -53,7 +56,7 @@ const MenuActions: React.FC<Props> = ({ toggleTheme = NOOP, priceAUTO = '0' }) =
                             extraTitleCss={walletButtonExtraTitleCss}
                             onClick={disconnectWallet}
                         >
-                            <WalletIcon  />
+                            <WalletIcon />
                         </OutlineButton>
                     )
                     : (
@@ -63,7 +66,7 @@ const MenuActions: React.FC<Props> = ({ toggleTheme = NOOP, priceAUTO = '0' }) =
                             extraTitleCss={walletButtonExtraTitleCss}
                             onClick={openConnectWalletModal}
                         >
-                            <WalletIcon  />
+                            <WalletIcon />
                         </OutlineButton>
                     )
                 }
@@ -163,7 +166,7 @@ const walletButtonStyle = (theme: Theme) => css`
     width: 100%;
     padding-left: 0;
     padding-right: 0;
-    
+
     ${theme.breakpoints.down("lg")} {
         //width: 82px;
     }

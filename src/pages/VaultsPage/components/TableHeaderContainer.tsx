@@ -7,7 +7,11 @@ type Props = {
     onClick?: (e: React.MouseEvent) => void,
 };
 
-const TokenDataHeaderContainer: React.FC<Props> = ({ children, className, onClick }) => (
+const TokenDataHeaderContainer: React.FC<Props> = ({
+    children,
+    className,
+    onClick
+}) => (
     <div className={className} css={style(onClick)} onClick={onClick}>
         {children}
     </div>

@@ -20,7 +20,11 @@ const DEFAULT_APP_STATE = {
     searchText: "",
 };
 
-const SelectCoinModal: React.FC<Props> = ({ className = "", onChooseCoin, onClose }) => {
+const SelectCoinModal: React.FC<Props> = ({
+    className = "",
+    onChooseCoin,
+    onClose
+}) => {
     const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
 
     const onSearchTextChanged = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -145,7 +149,7 @@ const coinItemStyle = (theme: Theme) => css`
     cursor: pointer;
     background-color: ${theme.colours.selectToken.background};
     transition: background-color ${theme.transitions.transitions};
-    
+
     :hover {
         background-color: ${theme.colours.selectToken.hover};
     }

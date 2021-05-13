@@ -8,9 +8,9 @@ import Container from "../../components/layouts/Container";
 import OutlineButton from "../../components/buttons/OutlineButton";
 import CommonLink from "../../components/links/CommonLink";
 import TokenList from "./components/TokenList";
+import NormalText from "../../components/text/NormalText";
 import { ReactComponent as WalletIcon } from "../../images/wallet-icon.svg";
 import { ReactComponent as LinkIcon } from "../../images/link-icon.svg";
-import NormalText from "../../components/text/NormalText";
 
 const VaultsPage: React.FC = () => {
     const { toggleConnectWalletModal, walletIsConnected, disconnectWallet } = useConnectWalletContext();

@@ -1,51 +1,48 @@
 import React from 'react';
 import { css, Global } from "@emotion/react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Theme } from "./theme";
+import { ConnectWalletContextProvider } from "./core/contexts/ConnectWalletContext";
+import statsData from "./data/StatsData";
 import Footer from "./components/footer/Footer";
 import Header from "./components/Header";
+import Container from "./components/layouts/Container";
+import BottomMenus from "./components/menu/BottomMenus";
+import ConnectWalletModal from "./components/modals/ConnectWalletModal";
 import VaultsPage from "./pages/VaultsPage";
 import SwapPage from "./pages/SwapPage";
 import DashboardPage from "./pages/DashboardPage";
-import Container from "./components/layouts/Container";
-import { Theme } from "./theme";
-import BottomMenus from "./components/menu/BottomMenus";
-import statsData from "./data/StatsData";
-import { ConnectWalletContextProvider } from "./core/contexts/ConnectWalletContext";
-import ConnectWalletModal from "./components/modals/ConnectWalletModal";
 
 type Props = {
     toggleTheme: () => void,
 };
 
-const App: React.FC<Props> = ({ toggleTheme }) => {
-
-    return (
-        <ConnectWalletContextProvider>
-            <div css={containerStyle}>
-                <Global styles={style} />
-                <BrowserRouter>
-                    <Header toggleTheme={toggleTheme} priceAUTO={statsData.priceAUTO} />
-                    <Container css={bodyContainerStyle}>
-                        <Switch>
-                            <Route path="/swap/:outToken?">
-                                <SwapPage />
-                            </Route>
-                            <Route path="/dashboard">
-                                <DashboardPage />
-                            </Route>
-                            <Route path="/">
-                                <VaultsPage />
-                            </Route>
-                        </Switch>
-                        <Footer />
-                        <BottomMenus />
-                        <ConnectWalletModal />
-                    </Container>
-                </BrowserRouter>
-            </div>
-        </ConnectWalletContextProvider>
-    );
-}
+const App: React.FC<Props> = ({ toggleTheme }) => (
+    <ConnectWalletContextProvider>
+        <div css={containerStyle}>
+            <Global styles={style} />
+            <BrowserRouter>
+                <Header toggleTheme={toggleTheme} priceAUTO={statsData.priceAUTO} />
+                <Container css={bodyContainerStyle}>
+                    <Switch>
+                        <Route path="/swap/:outToken?">
+                            <SwapPage />
+                        </Route>
+                        <Route path="/dashboard">
+                            <DashboardPage />
+                        </Route>
+                        <Route path="/">
+                            <VaultsPage />
+                        </Route>
+                    </Switch>
+                    <Footer />
+                    <BottomMenus />
+                    <ConnectWalletModal />
+                </Container>
+            </BrowserRouter>
+        </div>
+    </ConnectWalletContextProvider>
+);
 
 const containerStyle = (theme: Theme) => css`
     display: flex;

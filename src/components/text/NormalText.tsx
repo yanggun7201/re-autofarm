@@ -13,11 +13,11 @@ type Props = {
 };
 
 const NormalText: React.FC<Props> = ({
-                                         display = "",
-                                         children,
-                                         className,
-                                         align = "left"
-                                     }) => (
+    display = "",
+    children,
+    className,
+    align = "left"
+}) => (
     <div className={className} css={style(display, align)}>
         {children}
     </div>

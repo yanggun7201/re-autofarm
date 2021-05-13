@@ -1,9 +1,9 @@
 import React from "react";
+import { css } from "@emotion/react";
+import { Theme } from "../theme";
 
 import { ReactComponent as LogoRound } from "../images/logo-round.svg";
 import { ReactComponent as LogoText } from "../images/logo-text.svg";
-import { css } from "@emotion/react";
-import { Theme } from "../theme";
 
 type Props = {
     className?: string,

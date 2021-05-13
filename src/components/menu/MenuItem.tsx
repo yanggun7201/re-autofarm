@@ -11,7 +11,12 @@ type Props = {
     extraTitleCss?: ExtraCssPropType,
 }
 
-const MenuItem: React.FC<Props> = ({ children, title, path = "/", extraTitleCss = "" }) => (
+const MenuItem: React.FC<Props> = ({
+    children,
+    title,
+    path = "/",
+    extraTitleCss = ""
+}) => (
     <NavLink to={path} {...path === "/" && { exact: true }} css={style} activeClassName={"active"}>
         {children}
         <div css={titleStyle(extraTitleCss)}>{title}</div>
@@ -39,7 +44,7 @@ const style = (theme: Theme) => css`
             background-image: linear-gradient(to right, ${theme.colours.menu.linearGradient});
         }
     }
-    
+
     &.active {
         background-color: ${theme.colours.menu.active};
 

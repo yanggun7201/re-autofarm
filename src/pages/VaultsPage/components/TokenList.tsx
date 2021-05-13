@@ -1,24 +1,24 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { css } from "@emotion/react";
 import { trim } from "lodash";
+import { Theme } from "../../../theme";
+import { AlignType, TokenDataType } from "../../../includes/constants";
+import useSetState from "../../../core/hooks/useSetState";
+import useThrottle from "../../../core/hooks/useThrottle";
+import Input from "../../../components/input/Input";
+import Dropdown from "../../../components/dropdown/Dropdown";
+import DropdownItem from "../../../components/dropdown/DropdownItem";
+import StickyContainer from "../../../components/layouts/StickyContainer";
+import { DropdownContextValueType } from "../../../components/dropdown/DropdownContext";
+import Container from "../../../components/layouts/Container";
+import TertiaryButton from "../../../components/buttons/TertiaryButton";
+import TableHeaderContainer from "./TableHeaderContainer";
+import TokenDataRow from "./TokenDataRow";
+import TokenDataHeader from "./TokenDataHeader";
+import { ReactComponent as SearchIcon } from "../../../images/search-icon.svg";
 import { ReactComponent as SortArrowAllIcon } from "../../../images/sort-arrow-all.svg";
 import { ReactComponent as SortArrowUpIcon } from "../../../images/sort-arrow-up.svg";
 import { ReactComponent as SortArrowDownIcon } from "../../../images/sort-arrow-down.svg";
-import Input from "../../../components/input/Input";
-import { ReactComponent as SearchIcon } from "../../../images/search-icon.svg";
-import Dropdown from "../../../components/dropdown/Dropdown";
-import DropdownItem from "../../../components/dropdown/DropdownItem";
-import TokenDataHeader from "./TokenDataHeader";
-import StickyContainer from "../../../components/layouts/StickyContainer";
-import useSetState from "../../../core/hooks/useSetState";
-import { DropdownContextValueType } from "../../../components/dropdown/DropdownContext";
-import TableHeaderContainer from "./TableHeaderContainer";
-import Container from "../../../components/layouts/Container";
-import TokenDataRow from "./TokenDataRow";
-import { Theme } from "../../../theme";
-import { AlignType, TokenDataType } from "../../../includes/constants";
-import useThrottle from "../../../core/hooks/useThrottle";
-import TertiaryButton from "../../../components/buttons/TertiaryButton";
 
 const LAZY_LOADING_INITIAL_COUNT = 30;
 
@@ -56,10 +56,10 @@ const DEFAULT_APP_STATE = {
 };
 
 const TokenList: React.FC<Props> = ({
-                                        className,
-                                        tokens = [],
-                                        tokenPools = {}
-                                    }) => {
+    className,
+    tokens = [],
+    tokenPools = {}
+}) => {
     const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
 
     const containerRef = useRef<HTMLElement>();

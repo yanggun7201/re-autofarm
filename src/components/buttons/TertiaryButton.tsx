@@ -13,12 +13,12 @@ type Props = {
 };
 
 const TertiaryButton: React.FC<Props> = ({
-                                             disabled = false,
-                                             children,
-                                             onClick = NOOP,
-                                             className = "",
-                                             fullWidth = false,
-                                         }) => (
+    disabled = false,
+    children,
+    onClick = NOOP,
+    className = "",
+    fullWidth = false,
+}) => (
     <PrimaryButton
         css={style(disabled, fullWidth)}
         className={className}

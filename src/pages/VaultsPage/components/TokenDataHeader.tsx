@@ -23,7 +23,7 @@ const TokenDataHeader: React.FC<Props> = ({
 const style = (align: AlignType, clickable: boolean) => css`
     display: flex;
     flex-direction: row;
-    
+
     ${clickable && css`
         cursor: pointer;
     `}

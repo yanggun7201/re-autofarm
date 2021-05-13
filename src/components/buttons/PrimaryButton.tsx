@@ -22,12 +22,12 @@ const DEFAULT_APP_STATE = {
 };
 
 const PrimaryButton: React.FC<Props> = ({
-                                            disabled = false,
-                                            children,
-                                            onClick = NOOP,
-                                            className = "",
-                                            fullWidth = false,
-                                        }) => {
+    disabled = false,
+    children,
+    onClick = NOOP,
+    className = "",
+    fullWidth = false,
+}) => {
 
     const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
 

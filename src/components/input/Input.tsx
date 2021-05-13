@@ -11,7 +11,7 @@ type Props = {
     className?: string,
 };
 
-const Input: React.FC<Props> = ({ children, className = "", value = "", placeholder="", onChange = NOOP }) => (
+const Input: React.FC<Props> = ({ children, className = "", value = "", placeholder = "", onChange = NOOP }) => (
     <div css={containerStyle} className={className}>
         <div css={iconStyle}>{children}</div>
         <input css={inputStyle} value={value} onChange={onChange} placeholder={placeholder} />

@@ -9,7 +9,11 @@ type Props = {
     className?: string,
 };
 
-const LinkButton: React.FC<Props> = ({ children, href, className = "" }) => (
+const LinkButton: React.FC<Props> = ({
+    children,
+    href,
+    className = ""
+}) => (
     <CommonLink href={href} className={className} css={style}>
         {children}
     </CommonLink>
@@ -31,7 +35,7 @@ const style = (theme: Theme) => css`
     color: ${theme.colours.text};
     background-color: ${theme.colours.linkButton.link};
     transition: background-color ${theme.transitions.transition};
-    
+
     :hover {
         background-color: ${theme.colours.linkButton.hover};
     }

@@ -24,14 +24,14 @@ type Props = {
 };
 
 const OutlineButton: React.FC<Props> = ({
-                                            title = "",
-                                            type = "default",
-                                            onClick = NOOP,
-                                            className = "",
-                                            extraTitleCss = "",
-                                            children,
-                                            reverse = false,
-                                        }) => {
+    title = "",
+    type = "default",
+    onClick = NOOP,
+    className = "",
+    extraTitleCss = "",
+    children,
+    reverse = false,
+}) => {
 
     const theme: Theme = useTheme();
 
@@ -79,7 +79,7 @@ const style = (colorMap: ColorMapType, reverse: boolean, clickable: boolean) => 
 
     > div:first-of-type {
         margin-right: 10px;
-        
+
         ${theme.breakpoints.down("xs")} {
             margin-right: 4px;
         }

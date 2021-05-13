@@ -1,8 +1,7 @@
 import React, { memo, useCallback } from "react";
 import { css } from "@emotion/react";
-import { ReactComponent as MagicWandIcon } from "../../../images/magic-wand-icon.svg";
-import { ReactComponent as LinkIcon } from "../../../images/link-icon.svg";
 import { Theme } from "../../../theme";
+import { TokenDataType } from "../../../includes/constants";
 import TitleText from "../../../components/text/TitleText";
 import SubText from "../../../components/text/SubText";
 import Container from "../../../components/layouts/Container";
@@ -13,7 +12,8 @@ import SecondaryButton from "../../../components/buttons/SecondaryButton";
 import CommonLink from "../../../components/links/CommonLink";
 import LinkButton from "../../../components/buttons/LinkButton";
 import NormalText from "../../../components/text/NormalText";
-import { TokenDataType } from "../../../includes/constants";
+import { ReactComponent as MagicWandIcon } from "../../../images/magic-wand-icon.svg";
+import { ReactComponent as LinkIcon } from "../../../images/link-icon.svg";
 
 type Props = {
     className?: string,
@@ -30,7 +30,7 @@ const DEFAULT_APP_STATE = {
     toWithdrawValue: 0,
 };
 
-const TokenPayment: React.FC<Props> = ({ className,tokenData }) => {
+const TokenPayment: React.FC<Props> = ({ className, tokenData }) => {
     const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
 
     const onToDepositValueChanged = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,7 +147,8 @@ const TokenPayment: React.FC<Props> = ({ className,tokenData }) => {
                                     >
                                         {tokenData.name}
                                     </CommonLink>
-                                    <span css={subTextStyle}> (${Number(Number(tokenData.wantPrice).toFixed(2)).toLocaleString()})</span>
+                                    <span
+                                        css={subTextStyle}> (${Number(Number(tokenData.wantPrice).toFixed(2)).toLocaleString()})</span>
                                 </div>
                                 <div>{tokenData.farm} multiplier: {tokenData.autoX}</div>
                                 <div>Type: {tokenData.stratType}</div>
@@ -157,11 +158,13 @@ const TokenPayment: React.FC<Props> = ({ className,tokenData }) => {
                         <div css={contractDetailBoxStyle}>
                             <div>
                                 <div><b>APY Calculations</b></div>
-                                <div> Farm APR: {tokenData.APR.toFixed(1)}%<span css={subTextStyle}> (0.00%&nbsp;daily)</span>
+                                <div> Farm APR: {tokenData.APR.toFixed(1)}%<span
+                                    css={subTextStyle}> (0.00%&nbsp;daily)</span>
                                 </div>
                                 <div> Optimal compounds per year: {tokenData.compoundsPerYear}</div>
                                 <div> Farm APY: {tokenData.APY.toFixed(1)}%</div>
-                                <div> AUTO APR: {(tokenData.APR_AUTO * 100).toFixed(1)}%<span css={subTextStyle}> (0.52%&nbsp;daily)</span>
+                                <div> AUTO APR: {(tokenData.APR_AUTO * 100).toFixed(1)}%<span
+                                    css={subTextStyle}> (0.52%&nbsp;daily)</span>
                                 </div>
                                 <div> Total APY: {(tokenData.APY_total * 100).toFixed(1)}%</div>
                             </div>
@@ -367,7 +370,7 @@ const contractDetailBoxStyle = (theme: Theme) => css`
     width: 149px;
     margin: 0 8px;
     font-size: 12px;
-    
+
     > b {
         font-size: 13px;
         font-weight: bold;

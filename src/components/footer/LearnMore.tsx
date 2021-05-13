@@ -3,39 +3,37 @@ import { css } from "@emotion/react";
 import { Theme } from "../../theme";
 import CommonLink from "../links/CommonLink";
 
-const LearnMore: React.FC = () => {
-    return (
-        <div css={style}>
-            <div css={titleStyle}>Learn More</div>
-            <div css={itemContainerStyle}>
-                <CommonLink
-                    css={linkStyle}
-                    href="https://github.com/autofarm-network/autofarm_audits/raw/main/CertiK%20Audit%20Report%20280321.pdf"
-                >
-                    Audit
-                </CommonLink>
-                <CommonLink
-                    css={linkStyle}
-                    href="https://github.com/autofarm-network/autofarmV2"
-                >
-                    Github
-                </CommonLink>
-                <CommonLink
-                    css={linkStyle}
-                    href="https://bscscan.com/address/0x0895196562c7868c5be92459fae7f877ed450452"
-                >
-                    Contract
-                </CommonLink>
-                <CommonLink
-                    css={linkStyle}
-                    href="https://autofarm.gitbook.io/autofarm-network/"
-                >
-                    Wiki
-                </CommonLink>
-            </div>
+const LearnMore: React.FC = () => (
+    <div css={style}>
+        <div css={titleStyle}>Learn More</div>
+        <div css={itemContainerStyle}>
+            <CommonLink
+                css={linkStyle}
+                href="https://github.com/autofarm-network/autofarm_audits/raw/main/CertiK%20Audit%20Report%20280321.pdf"
+            >
+                Audit
+            </CommonLink>
+            <CommonLink
+                css={linkStyle}
+                href="https://github.com/autofarm-network/autofarmV2"
+            >
+                Github
+            </CommonLink>
+            <CommonLink
+                css={linkStyle}
+                href="https://bscscan.com/address/0x0895196562c7868c5be92459fae7f877ed450452"
+            >
+                Contract
+            </CommonLink>
+            <CommonLink
+                css={linkStyle}
+                href="https://autofarm.gitbook.io/autofarm-network/"
+            >
+                Wiki
+            </CommonLink>
         </div>
-    )
-};
+    </div>
+);
 
 const style = css`
     display: flex;

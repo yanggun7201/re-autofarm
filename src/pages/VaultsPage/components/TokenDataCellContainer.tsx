@@ -24,8 +24,8 @@ const style = (align: AlignType) => css`
     display: flex;
     flex-direction: column;
 
-    ${align === "left" && css`x
-    align-items: flex-start;
+    ${align === "left" && css`
+        align-items: flex-start;
     `};
 
     ${align === "right" && css`

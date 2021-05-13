@@ -7,27 +7,25 @@ import { ReactComponent as MediumIcon } from "../../images/medium-icon.svg";
 import { ReactComponent as TwitterIcon } from "../../images/twitter-icon.svg";
 import { ReactComponent as DiscordIcon } from "../../images/discord-icon.svg";
 
-const JoinCommunity: React.FC = () => {
-    return (
-        <div css={style}>
-            <div css={titleStyle}>Join Community</div>
-            <div css={itemContainerStyle}>
-                <CommonLink css={linkStyle} href="https://t.me/autofarm_network">
-                    <TelegramIcon css={iconStyle} />
-                </CommonLink>
-                <CommonLink css={linkStyle} href="https://medium.com/autofarm-network">
-                    <MediumIcon css={iconStyle} />
-                </CommonLink>
-                <CommonLink css={linkStyle} href="https://twitter.com/autofarmnetwork">
-                    <TwitterIcon css={iconStyle} />
-                </CommonLink>
-                <CommonLink css={linkStyle} href="https://discord.gg/bJ9ZsypQzv">
-                    <DiscordIcon css={iconStyle} />
-                </CommonLink>
-            </div>
+const JoinCommunity: React.FC = () => (
+    <div css={style}>
+        <div css={titleStyle}>Join Community</div>
+        <div css={itemContainerStyle}>
+            <CommonLink css={linkStyle} href="https://t.me/autofarm_network">
+                <TelegramIcon css={iconStyle} />
+            </CommonLink>
+            <CommonLink css={linkStyle} href="https://medium.com/autofarm-network">
+                <MediumIcon css={iconStyle} />
+            </CommonLink>
+            <CommonLink css={linkStyle} href="https://twitter.com/autofarmnetwork">
+                <TwitterIcon css={iconStyle} />
+            </CommonLink>
+            <CommonLink css={linkStyle} href="https://discord.gg/bJ9ZsypQzv">
+                <DiscordIcon css={iconStyle} />
+            </CommonLink>
         </div>
-    )
-};
+    </div>
+);
 
 const style = css`
     display: flex;

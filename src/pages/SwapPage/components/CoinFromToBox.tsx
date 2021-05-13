@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { css } from "@emotion/react";
-import { ReactComponent as ChevronDownIcon } from "../../../images/chevron-down-icon.svg";
 import { Theme } from "../../../theme";
 import SelectCoinModal from "../../../components/modals/SelectCoinModal";
 import useSetState from "../../../core/hooks/useSetState";
 import { CoinImageType } from "../../../data/CoinImageData";
+import { ReactComponent as ChevronDownIcon } from "../../../images/chevron-down-icon.svg";
 
 type Props = {
     title: string,
@@ -21,10 +21,10 @@ const DEFAULT_APP_STATE = {
 };
 
 const CoinFromToBox: React.FC<Props> = ({
-                                            title = "",
-                                            selectedCoin,
-                                            setCoin,
-                                        }) => {
+    title = "",
+    selectedCoin,
+    setCoin,
+}) => {
     const [state, setState] = useSetState<DEFAULT_STATE>(DEFAULT_APP_STATE);
 
     const onOpenCoinModal = useCallback((e: React.MouseEvent) => {
