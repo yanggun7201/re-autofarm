@@ -41,6 +41,7 @@ const iconStyle = (theme: Theme) => css`
 const inputStyle = (theme: Theme) => css`
     border: 1px solid ${theme.colours.border};
     background-color: ${theme.colours.background};
+    color: ${theme.colours.text};
     width: 100%;
     height: calc(100% - 2px);
     font-size: 16px;

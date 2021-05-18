@@ -6,6 +6,7 @@ const lightColours = {
     defaultText: '#6a7380',
     defaultText2: '#6B7280',
     blackGrayText: '#121212',
+    grayGrayText: '#6a7380',
     link: '#3c81f6',
     background: '#ffffff',
     border: '#e4e7eb',
@@ -59,6 +60,10 @@ const lightColours = {
     selectToken: {
         background: '#ffffff',
         hover: '#e4e7eb',
+    },
+    routing: {
+        headerBackground: '#f3f4f6',
+        bodyBackground: '#ffffff',
     },
 };
 

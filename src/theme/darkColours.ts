@@ -6,6 +6,7 @@ const darkColours = {
     defaultText: '#ffffff',
     defaultText2: '#6B7280',
     blackGrayText: '#9ca3af',
+    grayGrayText: '#989fab',
     link: '#3c81f6',
     background: '#121212',
     border: '#202a37',
@@ -60,6 +61,10 @@ const darkColours = {
     selectToken: {
         background: '#111927',
         hover: '#1f2a37',
+    },
+    routing: {
+        headerBackground: '#111927',
+        bodyBackground: '#1f2a37',
     },
 };
 

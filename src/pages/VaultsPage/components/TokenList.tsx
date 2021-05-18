@@ -326,7 +326,7 @@ const dropdownContainerStyle = css`
 
 
 const titleStyle = (align: AlignType = "right") => (theme: Theme) => css`
-    color: ${theme.colours.defaultText};
+    color: ${theme.colours.grayGrayText};
     font-size: 14px;
     font-weight: bold;
 
@@ -340,7 +340,7 @@ const titleStyle = (align: AlignType = "right") => (theme: Theme) => css`
 `;
 
 const descStyle = (theme: Theme) => css`
-    color: ${theme.colours.defaultText};
+    color: ${theme.colours.grayGrayText};
     font-size: 14px;
     margin-left: 4px;
 
@@ -374,7 +374,7 @@ const tableHeaderWrapperStyle = (theme: Theme) => css`
 `;
 
 const iconColorStyle = (theme: Theme) => css`
-    fill: ${theme.colours.defaultText};
+    fill: ${theme.colours.grayGrayText};
 
     ${theme.breakpoints.only("xs")} {
         width: 12px;
