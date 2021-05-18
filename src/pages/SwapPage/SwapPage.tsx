@@ -7,6 +7,7 @@ import { CoinImageType } from "../../data/CoinImageData";
 import { useConnectWalletContext } from "../../core/contexts/ConnectWalletContext";
 import TertiaryButton from "../../components/buttons/TertiaryButton";
 import { ReactComponent as ArrowDownIcon } from "../../images/arrow-down-icon.svg";
+import Container from "../../components/layouts/Container";
 
 type DEFAULT_STATE = {
     tolerance: number | string,
@@ -47,84 +48,97 @@ const SwapPage: React.FC = () => {
 
     return (
         <div css={style}>
-            <div css={mainTitleStyle}>
-                AutoSwap is in public alpha. Use at your own risk.
-            </div>
-            <div css={boxContainerStyle}>
-                <div css={boxStyle}>
-                    <div css={innerBoxStyle}>
-                        <div css={titleStyle}>Swap</div>
-                        <CoinFromToBox title={"From"} setCoin={setFromCoin} selectedCoin={state.fromSelectedCoin} />
+            <Container css={containerStyle}>
+                <div css={mainTitleStyle}>
+                    AutoSwap is in public alpha. Use at your own risk.
+                </div>
+                <Container css={swapBoxContainerStyle}>
+                    <div css={boxContainerStyle}>
+                        <div css={boxStyle}>
+                            <div css={innerBoxStyle}>
+                                <div css={titleStyle}>Swap</div>
+                                <CoinFromToBox title={"From"} setCoin={setFromCoin}
+                                               selectedCoin={state.fromSelectedCoin} />
 
-                        <div css={arrowBoxContainerStyle}>
-                            <div css={downArrowContainerStyle}>
-                                <ArrowDownIcon css={downArrowStyle} />
-                            </div>
-                        </div>
-
-                        <CoinFromToBox title={"To"} setCoin={setToCoin} selectedCoin={state.toSelectedCoin} />
-
-                        <div css={toleranceContainerStyle}>
-                            <div css={toleranceTitleStyle}>Slippage tolerance</div>
-                            <div css={toleranceInputContainerStyle}>
-                                <div
-                                    css={toleranceValueStyle(state.tolerance === 0.1)}
-                                    onClick={() => setToleranceChanged(0.1)}
-                                >
-                                    0.1%
-                                </div>
-                                <div
-                                    css={toleranceValueStyle(state.tolerance === 0.5)}
-                                    onClick={() => setToleranceChanged(0.5)}
-                                >
-                                    0.5%
-                                </div>
-                                <div
-                                    css={toleranceValueStyle(state.tolerance === 1)}
-                                    onClick={() => setToleranceChanged(1)}
-                                >
-                                    1%
-                                </div>
-                                <div css={toleranceInputBoxStyle}>
-                                    <input
-                                        css={toleranceInputStyle}
-                                        type="number"
-                                        inputMode="decimal"
-                                        placeholder="Custom"
-                                        value={state.tolerance.toString()}
-                                        onChange={onToleranceChanged}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        {walletIsConnected
-                            ? (
-                                <TertiaryButton
-                                    fullWidth
-                                    css={swapButtonStyle}
-                                    onClick={onSwapClicked}
-                                >
-                                    Swap
-                                </TertiaryButton>
-                            )
-                            : (
-                                <div css={walletConnectMessageContainerStyle}>
-                                    <div css={walletConnectMessageStyle}>
-                                        Wallet not connected
+                                <div css={arrowBoxContainerStyle}>
+                                    <div css={downArrowContainerStyle}>
+                                        <ArrowDownIcon css={downArrowStyle} />
                                     </div>
                                 </div>
-                            )
-                        }
+
+                                <CoinFromToBox title={"To"} setCoin={setToCoin} selectedCoin={state.toSelectedCoin} />
+
+                                <div css={toleranceContainerStyle}>
+                                    <div css={toleranceTitleStyle}>Slippage tolerance</div>
+                                    <div css={toleranceInputContainerStyle}>
+                                        <div
+                                            css={toleranceValueStyle(state.tolerance === 0.1)}
+                                            onClick={() => setToleranceChanged(0.1)}
+                                        >
+                                            0.1%
+                                        </div>
+                                        <div
+                                            css={toleranceValueStyle(state.tolerance === 0.5)}
+                                            onClick={() => setToleranceChanged(0.5)}
+                                        >
+                                            0.5%
+                                        </div>
+                                        <div
+                                            css={toleranceValueStyle(state.tolerance === 1)}
+                                            onClick={() => setToleranceChanged(1)}
+                                        >
+                                            1%
+                                        </div>
+                                        <div css={toleranceInputBoxStyle}>
+                                            <input
+                                                css={toleranceInputStyle}
+                                                type="number"
+                                                inputMode="decimal"
+                                                placeholder="Custom"
+                                                value={state.tolerance.toString()}
+                                                onChange={onToleranceChanged}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                {walletIsConnected
+                                    ? (
+                                        <TertiaryButton
+                                            fullWidth
+                                            css={swapButtonStyle}
+                                            onClick={onSwapClicked}
+                                        >
+                                            Swap
+                                        </TertiaryButton>
+                                    )
+                                    : (
+                                        <div css={walletConnectMessageContainerStyle}>
+                                            <div css={walletConnectMessageStyle}>
+                                                Wallet not connected
+                                            </div>
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        </div>
+                        <div className="w-full sm:w-auto transition-all transform duration-500"></div>
                     </div>
-                </div>
-                <div className="w-full sm:w-auto transition-all transform duration-500"></div>
-            </div>
+                </Container>
+            </Container>
         </div>
     );
 };
 
-const style = css`
+const style = (theme: Theme) => css`
+    border-left: 1px solid ${theme.colours.border};
     margin: 0 auto;
+    width: 100%;
+    height: 100%;
+`;
+
+const containerStyle = css`
+    display: flex;
+    flex-direction: column;
 `;
 
 const mainTitleStyle = css`
@@ -133,6 +147,12 @@ const mainTitleStyle = css`
     font-weight: bold;
     font-size: 16px;
     max-width: calc(100vw - 80px);
+`;
+
+const swapBoxContainerStyle = css`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 `;
 
 const boxContainerStyle = css`

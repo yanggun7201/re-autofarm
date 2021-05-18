@@ -63,6 +63,7 @@ const bodyContainerStyle = css`
     display: flex;
     flex-direction: column;
     width: 100%;
+    justify-content: space-between;
 `;
 
 const style = (theme: Theme) => css`

@@ -70,8 +70,11 @@ const DashboardPage: React.FC = () => {
     );
 };
 
-const style = css`
+const style = (theme: Theme) => css`
+    border-left: 1px solid ${theme.colours.border};
     margin: 0 auto;
+    width: 100%;
+    height: 100%;
 `;
 
 const mainTitleStyle = css`
