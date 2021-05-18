@@ -124,11 +124,11 @@ const SwapPage: React.FC = () => {
                                             </TertiaryButton>
                                             <div css={swapDetailValueContainerStyle}>
                                                 <div css={swapDetailValueStyle}>
-                                                    <div>1 BNB</div>
+                                                    <div>1 {state.fromSelectedCoin?.name}</div>
                                                     <div>≈ $527.54</div>
                                                 </div>
                                                 <div css={swapDetailValueStyle}>
-                                                    <div>1 ALICE</div>
+                                                    <div>1 {state.toSelectedCoin?.name}</div>
                                                     <div>≈ $12.488394</div>
                                                 </div>
                                                 <div css={swapDetailValueStyle}>
