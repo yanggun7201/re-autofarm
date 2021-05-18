@@ -133,7 +133,7 @@ const SwapPage: React.FC = () => {
                                                 </div>
                                                 <div css={swapDetailValueStyle}>
                                                     <div>Swap Rate</div>
-                                                    <div>≈ 0 ALICE/BNB</div>
+                                                    <div>≈ 0 {state.toSelectedCoin?.name}/{state.fromSelectedCoin?.name}</div>
                                                 </div>
                                             </div>
                                         </>
