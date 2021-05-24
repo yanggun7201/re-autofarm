@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { css } from "@emotion/react";
+import { useHistory } from "react-router";
 import { Theme } from "../theme";
 
 import { ReactComponent as LogoRound } from "../images/logo-round.svg";
@@ -9,17 +10,26 @@ type Props = {
     className?: string,
 };
 
-const Logo: React.FC<Props> = ({ className }) => (
-    <div css={style} className={className}>
-        <LogoRound css={logoStyle} />
-        <LogoText css={logoTextStyle} />
-    </div>
-);
+const Logo: React.FC<Props> = ({ className }) => {
+    const history = useHistory();
+    
+    const onLogoClicked = useCallback(() => {
+        history.push("/");
+    }, []);
+
+    return (
+        <div css={style} className={className} onClick={onLogoClicked}>
+            <LogoRound css={logoStyle} />
+            <LogoText css={logoTextStyle} />
+        </div>
+    );
+}
 
 const style = css`
     display: flex;
     flex-direction: row;
     align-items: center;
+    cursor: pointer;
 `;
 
 const logoStyle = css`
